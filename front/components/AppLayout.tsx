@@ -13,7 +13,7 @@ const SearchInput = styled(Input.Search)`
 `;
 
 const AppLayout = ({ children }: AppLayoutProps) => {
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   return (
     <div>
       <Menu mode="horizontal">
@@ -32,7 +32,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       </Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile /> : <LoginForm />}
+          {isLoggedIn ? (
+            <UserProfile setIsLoggedIn={setIsLoggedIn} />
+          ) : (
+            <LoginForm setIsLoggedIn={setIsLoggedIn} />
+          )}
         </Col>
         <Col xs={24} md={12}>
           {children}
