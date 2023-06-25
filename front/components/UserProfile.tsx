@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Avatar, Button, Card, Form } from "antd";
+import { Avatar, Button, Card } from "antd";
 
 type LoginFormProps = {
   setIsLoggedIn: (value: boolean) => void;
@@ -27,7 +27,7 @@ const UserProfile = ({ setIsLoggedIn }: LoginFormProps) => {
         </div>,
       ]}
     >
-      <Card.Meta avatar={<Avatar>JD</Avatar>}></Card.Meta>
+      <Card.Meta avatar={<Avatar>JD</Avatar>} title="작당모임"></Card.Meta>
       <Button onClick={onLogOut}>로그아웃</Button>
     </Card>
   );

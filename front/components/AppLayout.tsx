@@ -51,7 +51,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           </Link>
         </Col>
       </Row>
-      {children}
     </div>
   );
 };
