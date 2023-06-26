@@ -2,6 +2,8 @@ import React from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
+import wrapper from "../store/configureStore";
+
 const jackdong = ({ Component, pageProps }: AppProps) => {
   return (
     <>
@@ -20,4 +22,4 @@ const jackdong = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default jackdong;
+export default wrapper.withRedux(jackdong);
