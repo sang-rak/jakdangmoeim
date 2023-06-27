@@ -5,7 +5,6 @@ import styled from "styled-components";
 import UserProfile from "../components/UserProfile";
 import LoginForm from "../components/LoginForm";
 import { useSelector } from "react-redux";
-import { RootState } from "../reducers";
 
 type AppLayoutProps = {
   children: ReactNode;
@@ -16,7 +15,7 @@ const SearchInput = styled(Input.Search)`
 `;
 
 const AppLayout = ({ children }: AppLayoutProps) => {
-  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn);
 
   return (
     <div>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 3060",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,6 +21,7 @@
     "react-dom": "18.2.0",
     "react-redux": "8.1.1",
     "redux": "4.2.1",
+    "redux-devtools-extension": "2.13.9",
     "styled-components": "4.2.1",
     "typescript": "5.1.3"
   },
