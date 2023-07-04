@@ -1,16 +1,16 @@
-interface State {
+export interface State {
   isLoggedIn: boolean;
   user: any;
   signUpData: any;
   loginData: any;
 }
 
-interface LoginAction {
+export interface LoginAction {
   type: "LOG_IN";
   data: any;
 }
 
-interface LogoutAction {
+export interface LogoutAction {
   type: "LOG_OUT";
 }
 
