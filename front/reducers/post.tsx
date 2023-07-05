@@ -3,7 +3,7 @@ export interface User {
   nickname: string;
 }
 
-export interface Image {
+export interface Images {
   src: string;
 }
 
@@ -16,7 +16,7 @@ export interface Post {
   id: number;
   User: User;
   content: string;
-  Images: Image[];
+  Images: Images[];
   Comments: Comment[];
 }
 
