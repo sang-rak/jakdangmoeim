@@ -1,10 +1,6 @@
 import React from "react";
 
-type PostImagesProps = {
-  images: React.ReactNode;
-};
-
-const PostImages = ({ images }: PostImagesProps) => {
+const PostImages = ({ images }: any) => {
   return <div> 구현중..</div>;
 };
 

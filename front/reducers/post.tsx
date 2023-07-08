@@ -48,14 +48,12 @@ export const initialState: State = {
       Comments: [
         {
           User: {
-            id: 2,
             nickname: "roro",
           },
           content: "예시로 만들 콘텐트",
         },
         {
           User: {
-            id: 3,
             nickname: "heldoo",
           },
           content: "예시예시예시예시예시예시",
@@ -72,7 +70,7 @@ export const addPost = {
   type: ADD_POST,
 };
 
-const dummyPost = {
+const dummyPost: Post = {
   id: 2,
   content: "더미 데이터 입니다.",
   User: {
