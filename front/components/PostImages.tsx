@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import { Images } from "../reducers/post";
 import { PlusOutlined } from "@ant-design/icons";
 import ImagesZoom from "./ImagesZoom";
-
 export interface PostImagesProps {
   images: Images[];
 }

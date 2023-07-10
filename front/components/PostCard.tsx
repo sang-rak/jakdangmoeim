@@ -11,6 +11,7 @@ import { Post } from "../reducers/post";
 import { useSelector } from "react-redux";
 import PostImages from "./PostImages";
 import CommentForm from "./CommentForm";
+import PostCardContent from "./PostCardContent";
 
 export interface PostCardProps {
   post: Post;
@@ -50,7 +51,7 @@ const PostCard = ({ post }: PostCardProps) => {
                 {id && post.User.id === id ? (
                   <>
                     <Button>수정</Button>
-                    <Button type="danger">삭제</Button>
+                    <Button type="text">삭제</Button>
                   </>
                 ) : (
                   <Button>신고</Button>
@@ -65,7 +66,7 @@ const PostCard = ({ post }: PostCardProps) => {
         <Card.Meta
           avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
           title={post.User.nickname}
-          description={post.content}
+          description={<PostCardContent postData={post.content} />}
         />
       </Card>
       {commentFormOpened && (
