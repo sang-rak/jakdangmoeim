@@ -5,5 +5,5 @@ export default (initialValue: any = null) => {
   const handler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   }, []);
-  return [value, handler];
+  return [value, handler, setValue];
 };

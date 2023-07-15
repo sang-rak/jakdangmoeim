@@ -29,7 +29,7 @@ const PostCard = ({ post }: PostCardProps) => {
     setCommentFormOpened((prev) => !prev);
   }, []);
   return (
-    <div style={{ marginBottom: 20 }}>
+    <div style={{ marginBottom: 40 }}>
       <Card
         cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
@@ -91,7 +91,7 @@ const PostCard = ({ post }: PostCardProps) => {
           />
         </div>
       )}
-      {/* <CommentForm /> */}
+      <CommentForm />
       {/* <Comments /> */}
     </div>
   );

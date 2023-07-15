@@ -1,6 +1,15 @@
 import { CloseOutlined } from "@ant-design/icons";
 import styled, { createGlobalStyle } from "styled-components";
 
+export const Global = createGlobalStyle`
+  .slick-slide {
+    display: inline-block;
+  .ant-card-cover {
+    transform: none !important;
+  }
+  }
+`;
+
 export const Overlay = styled.div`
   position: fixed;
   z-index: 5000;
@@ -53,7 +62,7 @@ export const Indicator = styled.div`
   text-align: center;
 
   & > div {
-    wight: 75px;
+    width: 75px;
     height: 30px;
     line-height: 30px;
     border-radius: 15px;
@@ -62,14 +71,5 @@ export const Indicator = styled.div`
     text-align: center;
     color: white;
     font-size: 15px;
-  }
-`;
-
-export const Global = createGlobalStyle`
-  .slick-slide {
-    display: inline-block;
-  .ant-card-cover {
-    transform: none !important;
-  }
   }
 `;
