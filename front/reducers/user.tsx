@@ -1,14 +1,19 @@
+import { User } from "./post";
+
 export interface State {
   logInLoading: boolean; // 로그인 시도중
   logInDone: boolean;
-  logInError: boolean;
+  logInError: any;
   logOutLoading: boolean; // 로그아웃 시도중
   logOutDone: boolean;
-  logOutError: boolean;
+  logOutError: any;
   signUpLoading: boolean; // 회원가입 시도중
   signUpDone: boolean;
-  signUpError: boolean;
-  me: any;
+  signUpError: any;
+  changeNicknameLoading: boolean; // 닉네임 변경 시도중
+  changeNicknameDone: boolean;
+  changeNicknameUpError: any;
+  me: User | null;
   signUpData: any;
   loginData: any;
 }

@@ -6,14 +6,14 @@ import PostForm from "../components/PostForm";
 import PostCard from "../components/PostCard";
 import { RootState } from "../reducers";
 const Home = () => {
-  const { me } = useSelector((state: RootState) => state.user);
-  const { mainPosts } = useSelector((state: RootState) => state.post);
+  const { me } = useSelector((state: any) => state.user);
+  const { mainPosts } = useSelector((state: any) => state.post);
 
   return (
     <AppLayout>
       {me && <PostForm />}
-      {mainPosts.map((c) => (
-        <PostCard key={c.id} post={c} />
+      {mainPosts.map((post: any) => (
+        <PostCard key={post.id} post={post} />
       ))}
     </AppLayout>
   );

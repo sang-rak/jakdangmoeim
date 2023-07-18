@@ -39,7 +39,7 @@ function* addComment(action: any) {
     // const result = yield call(addCommentAPI, action.data);
     yield put({
       type: ADD_COMMENT_SUCCESS,
-      // data: result.data,
+      data: action.data,
     });
   } catch (err: any) {
     yield put({
