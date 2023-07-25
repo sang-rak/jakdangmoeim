@@ -99,8 +99,8 @@ export const logoutRequestAction = () => {
   };
 };
 
-const reducer = (state = initialState, action: any) => {
-  return produce(state, (draft: any) => {
+const reducer = (state = initialState, action: any) =>
+  produce(state, (draft: any) => {
     switch (action.type) {
       case LOG_IN_REQUEST:
         draft.logInLoading = true;
@@ -182,5 +182,5 @@ const reducer = (state = initialState, action: any) => {
         break;
     }
   });
-};
+
 export default reducer;

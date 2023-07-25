@@ -1,5 +1,6 @@
 import shortId from "shortid";
 import { produce } from "immer";
+import { faker } from "@faker-js/faker";
 
 export interface User {
   id?: string;
@@ -93,13 +94,42 @@ export const initialState: State = {
   addCommentError: null,
 };
 
+initialState.mainPosts = initialState.mainPosts.concat(
+  Array(20)
+    .fill(null)
+    .map(() => ({
+      id: shortId.generate(),
+      User: {
+        id: shortId.generate(),
+        nickname: faker.internet.userName(),
+      },
+      content: faker.lorem.paragraph(),
+      Images: [
+        {
+          id: shortId.generate(),
+          src: faker.image.image(),
+        },
+      ],
+      Comments: [
+        {
+          id: shortId.generate(),
+          User: {
+            id: shortId.generate(),
+            nickname: faker.internet.userName(),
+          },
+          content: faker.lorem.sentence(),
+        },
+      ],
+    }))
+);
+
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
 export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
 
-export const REMOVE_POST_REQUEST = "ADD_POST_REQUEST";
-export const REMOVE_POST_SUCCESS = "ADD_POST_SUCCESS";
-export const REMOVE_POST_FAILURE = "ADD_POST_FAILURE";
+export const REMOVE_POST_REQUEST = "REMOVE_POST_REQUEST";
+export const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
+export const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
 
 export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
