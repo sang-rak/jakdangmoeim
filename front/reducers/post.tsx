@@ -3,23 +3,23 @@ import { produce } from "immer";
 import { faker } from "@faker-js/faker";
 
 export interface User {
-  id?: string;
+  id?: string | number;
   nickname: string;
 }
 
 export interface Images {
   src: string;
-  id: string;
+  id: string | number;
 }
 
 export interface Comment {
-  id: string;
+  id: string | number;
   User: User;
   content: string;
 }
 
 export interface Post {
-  id: string;
+  id: string | number;
   User: User;
   content: string;
   Images: Images[];
@@ -29,6 +29,10 @@ export interface Post {
 export interface State {
   mainPosts: Post[];
   imagePaths: string[];
+  hasMorePosts: boolean;
+  loadPostLoading: boolean;
+  loadPostDone: boolean;
+  loadPostError: any;
   addPostLoading: boolean;
   addPostDone: boolean;
   addPostError: any;
@@ -40,49 +44,12 @@ export interface State {
   removePostError: any;
 }
 export const initialState: State = {
-  mainPosts: [
-    {
-      id: "1",
-      User: {
-        id: "1",
-        nickname: "잉락",
-      },
-      content: "첫 번째 게시글 #해시태그 #익스프레스",
-      Images: [
-        {
-          id: shortId.generate(),
-          src: "https://picsum.photos/seed/picsum/200/300",
-        },
-        {
-          id: shortId.generate(),
-          src: "https://picsum.photos/seed/picsum/200/300",
-        },
-        {
-          id: shortId.generate(),
-          src: "https://picsum.photos/seed/picsum/200/300",
-        },
-      ],
-      Comments: [
-        {
-          id: shortId.generate(),
-          User: {
-            id: shortId.generate(),
-            nickname: "roro",
-          },
-          content: "예시로 만들 콘텐트",
-        },
-        {
-          id: shortId.generate(),
-          User: {
-            id: shortId.generate(),
-            nickname: "heldoo",
-          },
-          content: "예시예시예시예시예시예시",
-        },
-      ],
-    },
-  ],
+  mainPosts: [],
   imagePaths: [],
+  hasMorePosts: true,
+  loadPostLoading: false,
+  loadPostDone: false,
+  loadPostError: null,
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
@@ -94,8 +61,8 @@ export const initialState: State = {
   addCommentError: null,
 };
 
-initialState.mainPosts = initialState.mainPosts.concat(
-  Array(20)
+export const generateDummyPost = (number: any) =>
+  Array(number)
     .fill(null)
     .map(() => ({
       id: shortId.generate(),
@@ -106,13 +73,11 @@ initialState.mainPosts = initialState.mainPosts.concat(
       content: faker.lorem.paragraph(),
       Images: [
         {
-          id: shortId.generate(),
           src: faker.image.image(),
         },
       ],
       Comments: [
         {
-          id: shortId.generate(),
           User: {
             id: shortId.generate(),
             nickname: faker.internet.userName(),
@@ -120,8 +85,11 @@ initialState.mainPosts = initialState.mainPosts.concat(
           content: faker.lorem.sentence(),
         },
       ],
-    }))
-);
+    }));
+
+export const LOAD_POSTS_REQUEST = "LOAD_POSTS_REQUEST";
+export const LOAD_POSTS_SUCCESS = "LOAD_POSTS_SUCCESS";
+export const LOAD_POSTS_FAILURE = "LOAD_POSTS_FAILURE";
 
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
@@ -148,7 +116,7 @@ const dummyPost = (data: any) => ({
   id: data.id,
   content: data.content,
   User: {
-    id: "1",
+    id: 1,
     nickname: "잉락",
   },
   Images: [],
@@ -159,7 +127,7 @@ const dummyComment = (data: any) => ({
   id: shortId.generate(),
   content: data,
   User: {
-    id: "1",
+    id: 1,
     nickname: "잉락",
   },
 });
@@ -167,6 +135,21 @@ const dummyComment = (data: any) => ({
 const reducer = (state: State = initialState, action: any) =>
   produce(state, (draft: any) => {
     switch (action.type) {
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      case LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        draft.mainPosts = action.data.concat(draft.mainPosts);
+        draft.hasMorePosts = draft.mainPosts.length < 50;
+        break;
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;
+        break;
       case ADD_POST_REQUEST:
         draft.addPostLoading = true;
         draft.addPostDone = false;
