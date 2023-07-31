@@ -12,6 +12,7 @@ import { Post, REMOVE_POST_REQUEST } from "../reducers/post";
 import PostImages from "./PostImages";
 import CommentForm from "./CommentForm";
 import PostCardContent from "./PostCardContent";
+import FollowButton from "./FollowButton";
 
 export interface PostCardProps {
   post: Post;
@@ -80,6 +81,7 @@ const PostCard = ({ post }: PostCardProps) => {
             <EllipsisOutlined />
           </Popover>,
         ]}
+        extra={id && <FollowButton post={post} />}
       >
         <Card.Meta
           avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
