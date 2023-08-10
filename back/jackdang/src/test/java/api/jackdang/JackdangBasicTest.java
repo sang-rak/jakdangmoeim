@@ -52,7 +52,7 @@ public class JackdangBasicTest {
 
     @Test
     public void startJPQL() {
-        // member1을 찾아라.
+        // member1을 찾아라. 이슈 #12
         String qlString =
                 "select m from Member m " +
                 "where m.username = :username";
