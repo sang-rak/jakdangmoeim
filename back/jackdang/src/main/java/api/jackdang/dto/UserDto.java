@@ -1,2 +1,17 @@
-package api.jackdang.dto;public class UserDto {
+package api.jackdang.dto;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class UserDto {
+
+    private String name;
+    private int age;
+
+    public UserDto(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 }
