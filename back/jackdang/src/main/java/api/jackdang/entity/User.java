@@ -20,8 +20,8 @@ public class User {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gatering_id")
-    private Gatering gatering;
+    @JoinColumn(name = "gathering_id")
+    private Gathering gathering;
 
     public User(String username) {
         this(username, 0);
@@ -31,17 +31,17 @@ public class User {
         this(username, age, null);
     }
 
-    public User(String username, int age, Gatering gatering) {
+    public User(String username, int age, Gathering gathering) {
         this.username = username;
         this.age = age;
-        if (gatering != null) {
-            changeGatering(gatering);
+        if (gathering != null) {
+            changeGathering(gathering);
         }
     }
 
-    public void changeGatering (Gatering gatering){
-        this.gatering = gatering;
-        gatering.getUsers().add(this);
+    public void changeGathering (Gathering gathering){
+        this.gathering = gathering;
+        gathering.getUsers().add(this);
     }
 }
 

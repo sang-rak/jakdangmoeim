@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "name"}) // 무한루프 위험성으로 조인이 없는것만 ToString 추가
-public class Gatering {
+public class Gathering {
     @Id
     @GeneratedValue
     private Long id;
@@ -23,7 +23,7 @@ public class Gatering {
     @OneToMany(mappedBy = "gathering")
     private List<User> users = new ArrayList<>();
 
-    public Gatering(String name) {
+    public Gathering(String name) {
         this.name = name;
     }
 }
