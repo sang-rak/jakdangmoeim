@@ -56,6 +56,7 @@ public class User {
         this.gathering = gathering;
         gathering.getUsers().add(this);
     }
+
 }
 
 
