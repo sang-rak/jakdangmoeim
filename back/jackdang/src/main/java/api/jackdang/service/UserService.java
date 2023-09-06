@@ -2,13 +2,11 @@ package api.jackdang.service;
 
 import api.jackdang.entity.User;
 import api.jackdang.repository.UserRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -39,10 +37,11 @@ public class UserService {
 
         return savedUser;
     }
+
     /*
-    * 로그인
-    * JWT 토큰 생성
-    */
+     * 로그인
+     * JWT 토큰 생성
+     */
     public String makeJwtToken(String username, int age) {
         Date now = new Date();
 
@@ -56,6 +55,4 @@ public class UserService {
                 .signWith(SignatureAlgorithm.HS256, "secret") // 암호 추후 변경 예정
                 .compact(); // JWT 토큰 생성
     }
-
-
 }

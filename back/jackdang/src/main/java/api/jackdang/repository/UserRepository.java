@@ -8,5 +8,10 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByUsername(String username);
+
+
+    // 회원가입시 유저 존재 여부 학인
     boolean existsByUsername(String username);
+
+
 }
