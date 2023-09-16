@@ -1,34 +1,24 @@
 package api.jackdang.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 회원 가입
  * param: username, age, password
  */
+@Data
+@NoArgsConstructor
 public class UserSignupRequestDTO {
     private String username;
     private int age;
     private String password;
+    private String authority;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public UserSignupRequestDTO(String username, int age, String password, String authority) {
         this.username = username;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
         this.age = age;
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
+        this.authority = authority;
     }
 }

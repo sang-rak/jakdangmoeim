@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "name"}) // 무한루프 위험성으로 조인이 없는것만 ToString 추가
 public class Team {
 
     @Id @GeneratedValue

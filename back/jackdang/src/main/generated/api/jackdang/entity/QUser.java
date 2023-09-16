@@ -24,11 +24,15 @@ public class QUser extends EntityPathBase<User> {
 
     public final NumberPath<Integer> age = createNumber("age", Integer.class);
 
+    public final StringPath authority = createString("authority");
+
     public final QGathering gathering;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath password = createString("password");
+
+    public final EnumPath<Role> role = createEnum("role", Role.class);
 
     public final StringPath username = createString("username");
 
