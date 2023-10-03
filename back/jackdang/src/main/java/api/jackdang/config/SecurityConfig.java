@@ -43,9 +43,9 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-//                .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
-//                .antMatchers("/api/v1/user/**").hasRole("USER")
-                .antMatchers("/api/**").permitAll()  // 인증절차 없이 허용 추후 /auth 만 예외로 변경
+//                .antMatchers("/api/v1/admin/**").hasRole("ROLE_ADMIN")
+//                .antMatchers("/api/v1/user/**").hasRole("ROLE_USER")
+                .antMatchers("/api/v1/auth/**").permitAll()  // 인증절차 없이 허용 추후 /auth 만 예외로 변경
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
