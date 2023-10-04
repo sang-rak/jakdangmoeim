@@ -1,6 +1,8 @@
 package api.jackdang.config;
 import api.jackdang.config.jwt.JwtAuthenticationFilter;
 import api.jackdang.config.jwt.JwtTokenProvider;
+import api.jackdang.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private UserRepository userRepository;
 
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -42,10 +46,15 @@ public class SecurityConfig {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+//                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+//                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
                 .authorizeRequests()
-//                .antMatchers("/api/v1/admin/**").hasRole("ROLE_ADMIN")
-//                .antMatchers("/api/v1/user/**").hasRole("ROLE_USER")
-                .antMatchers("/api/v1/auth/**").permitAll()  // 인증절차 없이 허용 추후 /auth 만 예외로 변경
+                .antMatchers("/api/v1/admin/**")//.hasRole("ROLE_ADMIN")
+                    .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/api/v1/user/**")  //.hasRole("ROLE_USER")
+                    .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/api/v1/auth/**")
+                    .permitAll()  // 인증절차 없이 허용 추후 /auth 만 예외로 변경
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

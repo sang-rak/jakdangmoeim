@@ -29,14 +29,14 @@ public class AuthService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
     /* 회원가입 */
-    public User signup(String username, int age, String password, String authority) {
+    public User signup(String username, int age, String password, String roles) {
         // 중복 체크 로직
         if (userRepository.existsByUsername(username)) {
             throw new RuntimeException("이미 사용 중인 유저 이름입니다.");
         }
 
         // 사용자 생성
-        User newUser = new User(username, age, bcryptPasswordEncoder.encode(password), authority);
+        User newUser = new User(username, age, bcryptPasswordEncoder.encode(password), roles);
 
         // 저장
         return userRepository.save(newUser);
@@ -48,15 +48,19 @@ public class AuthService {
      */
     public String login(String username, String password) {
         // 사용자 정보 검색
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자가 없습니다: " + username));
-
-        if (bcryptPasswordEncoder.matches(password, user.getPassword())) {
-            // 검증된 인증 정보로 JWT 토큰 생성
-            return jwtTokenProvider.generateToken(username);
+        User userEntity = userRepository.findByUsername(username);
+        if(userEntity != null) {
+            // 비밀번호 확인
+            if (bcryptPasswordEncoder.matches(password, userEntity.getPassword())) {
+                // 검증된 인증 정보로 JWT 토큰 생성
+                return jwtTokenProvider.generateToken(username);
+            } else {
+                throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            }
         } else {
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            throw new UsernameNotFoundException("사용자가 없습니다: " + username);
         }
+
 
     }
 }

@@ -29,5 +29,10 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
+    // 권한 테스트
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
+    }
 
 }

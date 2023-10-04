@@ -13,12 +13,12 @@ public class UserSignupRequestDTO {
     private String username;
     private int age;
     private String password;
-    private String authority;
+    private String roles;
 
-    public UserSignupRequestDTO(String username, int age, String password, String authority) {
+    public UserSignupRequestDTO(String username, int age, String password, String roles) {
         this.username = username;
         this.age = age;
         this.password = password;
-        this.authority = authority;
+        this.roles = roles;
     }
 }
