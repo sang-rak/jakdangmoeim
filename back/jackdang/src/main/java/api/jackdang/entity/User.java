@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,9 +30,9 @@ public class User {
     private Gathering gathering;
     private String authority;
     private String roles;
-    public User(String username, int age, String role) {
+    public User(String username, int age, String roles) {
 
-        this(username, age, "", role);
+        this(username, age, "", roles);
     }
 
     public User(String username, int age, String password, String roles) {
@@ -61,6 +62,14 @@ public class User {
         }
         this.gathering = gathering;
         gathering.getUsers().add(this);
+    }
+
+    // ENUM으로 안하고 ,로 해서 구분해서 ROLE을 입력
+    public List<String> getRoleList(){
+        if(this.roles.length() > 0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
     }
 
 }
