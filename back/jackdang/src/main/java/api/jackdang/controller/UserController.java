@@ -1,7 +1,6 @@
 package api.jackdang.controller;
 
 import api.jackdang.dto.UserSignupRequestDTO;
-import api.jackdang.entity.User;
 import api.jackdang.service.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;

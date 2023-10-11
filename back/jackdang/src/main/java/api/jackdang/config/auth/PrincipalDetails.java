@@ -1,6 +1,6 @@
 package api.jackdang.config.auth;
 
-import api.jackdang.entity.User;
+import api.jackdang.entity.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class PrincipalDetails implements UserDetails {
-    private User user;
+    private Users user;
 
-    public PrincipalDetails(User user){
+    public PrincipalDetails(Users user){
         this.user = user;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 

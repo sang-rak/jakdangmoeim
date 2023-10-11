@@ -24,7 +24,7 @@ public class QGathering extends EntityPathBase<Gathering> {
 
     public final StringPath name = createString("name");
 
-    public final ListPath<User, QUser> users = this.<User, QUser>createList("users", User.class, QUser.class, PathInits.DIRECT2);
+    public final ListPath<Users, QUsers> users = this.<Users, QUsers>createList("users", Users.class, QUsers.class, PathInits.DIRECT2);
 
     public QGathering(String variable) {
         super(Gathering.class, forVariable(variable));

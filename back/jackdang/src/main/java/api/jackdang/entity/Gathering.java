@@ -21,7 +21,7 @@ public class Gathering {
     private String name;
 
     @OneToMany(mappedBy = "gathering")
-    private List<User> users = new ArrayList<>();
+    private List<Users> users = new ArrayList<>();
 
     public Gathering(String name) {
         this.name = name;

@@ -1,7 +1,7 @@
 package api.jackdang.service;
 
 import api.jackdang.config.jwt.JwtTokenProvider;
-import api.jackdang.entity.User;
+import api.jackdang.entity.Users;
 import api.jackdang.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +29,14 @@ public class AuthService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
     /* 회원가입 */
-    public User signup(String username, int age, String password, String roles) {
+    public Users signup(String username, int age, String password, String roles) {
         // 중복 체크 로직
         if (userRepository.existsByUsername(username)) {
             throw new RuntimeException("이미 사용 중인 유저 이름입니다.");
         }
 
         // 사용자 생성
-        User newUser = new User(username, age, bcryptPasswordEncoder.encode(password), roles);
+        Users newUser = new Users(username, age, bcryptPasswordEncoder.encode(password), roles);
 
         // 저장
         return userRepository.save(newUser);
@@ -48,7 +48,7 @@ public class AuthService {
      */
     public String login(String username, String password) {
         // 사용자 정보 검색
-        User userEntity = userRepository.findByUsername(username);
+        Users userEntity = userRepository.findByUsername(username);
         if(userEntity != null) {
             // 비밀번호 확인
             if (bcryptPasswordEncoder.matches(password, userEntity.getPassword())) {
@@ -60,7 +60,6 @@ public class AuthService {
         } else {
             throw new UsernameNotFoundException("사용자가 없습니다: " + username);
         }
-
-
     }
+
 }

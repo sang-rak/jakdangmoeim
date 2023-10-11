@@ -1,26 +1,21 @@
 package api.jackdang.entity;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "users_id")
     private Long id;
     private String username;
     private int age;
@@ -30,12 +25,12 @@ public class User {
     private Gathering gathering;
     private String authority;
     private String roles;
-    public User(String username, int age, String roles) {
+    public Users(String username, int age, String roles) {
 
         this(username, age, "", roles);
     }
 
-    public User(String username, int age, String password, String roles) {
+    public Users(String username, int age, String password, String roles) {
         this.username = username;
         this.age = age;
         this.password = password;
@@ -43,10 +38,10 @@ public class User {
     }
 
 
-    public User(String username, int age, Gathering gathering, String roles) {
+    public Users(String username, int age, Gathering gathering, String roles) {
         this(username, age, "", gathering, roles); // password 초기화
     }
-    public User(String username, int age, String password, Gathering gathering, String roles) { // password 파라미터 추가
+    public Users(String username, int age, String password, Gathering gathering, String roles) { // password 파라미터 추가
         this.username = username;
         this.age = age;
         this.password = password;
