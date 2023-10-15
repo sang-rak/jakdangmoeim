@@ -49,9 +49,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests(authroize -> authroize
                 .antMatchers("/api/v1/admin/**")//.hasRole("ROLE_ADMIN")
-                    .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                    .access("hasRole('MANAGER') or hasRole('ADMIN')")
                 .antMatchers("/api/v1/user/**")  //.hasRole("ROLE_USER")
-                    .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                    .access("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
                 .antMatchers("/api/v1/auth/**").permitAll()  // 인증절차 없이 허용
                     .anyRequest().permitAll())
                 .build();

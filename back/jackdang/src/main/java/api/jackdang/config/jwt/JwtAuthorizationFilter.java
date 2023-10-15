@@ -55,7 +55,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     principalDetails, // 나중에 컨트롤러에서 DI해서 쓸 때 사용하기 편함.
                     null, // 패스워드 null 처리
                     principalDetails.getAuthorities());
-
             // 강제로 시큐리티의 세션에 접근하여 값 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
