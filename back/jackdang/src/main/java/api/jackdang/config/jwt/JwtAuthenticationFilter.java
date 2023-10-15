@@ -37,11 +37,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         LoginRequestDto loginRequestDto = null;
         try {
             loginRequestDto = om.readValue(request.getInputStream(), LoginRequestDto.class);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("JwtAuthenticationFilter : "+loginRequestDto);
+        System.out.println("JwtAuthenticationFilter : "+ loginRequestDto);
 
         // 유저네임패스워드 토큰 생성
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -50,6 +51,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                         loginRequestDto.getPassword());
 
         System.out.println("JwtAuthenticationFilter : 토큰생성완료");
+
 
         // authenticate() 함수가 호출 되면 인증 프로바이더가 유저 디테일 서비스의
         // loadUserByUsername(토큰의 첫번째 파라메터) 를 호출하고
@@ -64,7 +66,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 authenticationManager.authenticate(authenticationToken);
 
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        System.out.println("Authentication : "+principalDetails.getUser().getUsername());
+        System.out.println("Authentication : "+ principalDetails.getUser().getUsername());
         return authentication;
     }
 
