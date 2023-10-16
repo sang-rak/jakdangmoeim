@@ -11,18 +11,20 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QUser is a Querydsl query type for User
+ * QUsers is a Querydsl query type for Users
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QUser extends EntityPathBase<User> {
+public class QUsers extends EntityPathBase<Users> {
 
-    private static final long serialVersionUID = -850497199L;
+    private static final long serialVersionUID = -595609278L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QUser user = new QUser("user");
+    public static final QUsers users = new QUsers("users");
 
     public final NumberPath<Integer> age = createNumber("age", Integer.class);
+
+    public final StringPath authority = createString("authority");
 
     public final QGathering gathering;
 
@@ -30,25 +32,27 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath password = createString("password");
 
+    public final StringPath roles = createString("roles");
+
     public final StringPath username = createString("username");
 
-    public QUser(String variable) {
-        this(User.class, forVariable(variable), INITS);
+    public QUsers(String variable) {
+        this(Users.class, forVariable(variable), INITS);
     }
 
-    public QUser(Path<? extends User> path) {
+    public QUsers(Path<? extends Users> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QUser(PathMetadata metadata) {
+    public QUsers(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QUser(PathMetadata metadata, PathInits inits) {
-        this(User.class, metadata, inits);
+    public QUsers(PathMetadata metadata, PathInits inits) {
+        this(Users.class, metadata, inits);
     }
 
-    public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
+    public QUsers(Class<? extends Users> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.gathering = inits.isInitialized("gathering") ? new QGathering(forProperty("gathering")) : null;
     }

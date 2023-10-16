@@ -13,17 +13,17 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "name"}) // 무한루프 위험성으로 조인이 없는것만 ToString 추가
+@ToString(of = {"id", "username"}) // 무한루프 위험성으로 조인이 없는것만 ToString 추가
 public class Gathering {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
+    private String username;
 
     @OneToMany(mappedBy = "gathering")
-    private List<User> users = new ArrayList<>();
+    private List<Users> users = new ArrayList<>();
 
-    public Gathering(String name) {
-        this.name = name;
+    public Gathering(String username) {
+        this.username = username;
     }
 }
