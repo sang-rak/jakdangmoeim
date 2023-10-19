@@ -34,7 +34,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <div>
       <Global />
-      <Menu mode="horizontal">
+      {/* <Menu mode="horizontal">
         <Menu.Item key="home">
           <Link href="/">작당모임</Link>
         </Menu.Item>
@@ -47,7 +47,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <Menu.Item key="signup">
           <Link href="/signup">회원가입</Link>
         </Menu.Item>
-      </Menu>
+      </Menu>*/}
       <Row gutter={8}>
         <Col xs={24} md={6}>
           {me ? <UserProfile /> : <LoginForm />}
@@ -55,15 +55,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <Col xs={24} md={12}>
           {children}
         </Col>
-        <Col xs={24} md={6}>
-          <Link
-            href="https://github.com/sang-rak"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Made by Jackdang
-          </Link>
-        </Col>
+        <Col xs={24} md={6}></Col>
       </Row>
     </div>
   );
