@@ -5,12 +5,19 @@ import AppLayout from "../components/AppLayout";
 import PostForm from "../components/PostForm";
 import PostCard from "../components/PostCard";
 import { LOAD_POSTS_REQUEST } from "../reducers/post";
+import { useRouter } from "next/router";
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state: any) => state.user);
   const { mainPosts, hasMorePosts, loadPostLoading } = useSelector(
     (state: any) => state.post
   );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/auth/login"); // / 페이지로 오면 /login 페이지로 리다이렉션
+  }, []);
 
   useEffect(() => {
     dispatch({

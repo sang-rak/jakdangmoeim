@@ -3,17 +3,18 @@ import Head from "next/head";
 import { Form, Input, Checkbox, Button } from "antd";
 import styled from "styled-components";
 
-import useInput from "../hooks/useInput";
-import AppLayout from "../components/AppLayout";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { SIGN_UP_REQUEST } from "../reducers/user";
+
 import { useDispatch, useSelector } from "react-redux";
+import useInput from "../../../hooks/useInput";
+import { SIGN_UP_REQUEST } from "../../../reducers/user";
+import AppLayout from "../../../components/AppLayout";
 
 const ErrorMessage = styled.div`
   color: red;
 `;
 
-const Signup = () => {
+const signup = () => {
   const dispatch = useDispatch();
   const { signUpLoading } = useSelector((state: any) => state.user);
 
@@ -127,4 +128,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default signup;
