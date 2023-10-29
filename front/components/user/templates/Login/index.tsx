@@ -29,8 +29,10 @@ const Login = () => {
 
   return (
     <FormWrapper onFinish={onSubmitForm}>
+      <div>작당</div>
+      <div>모임</div>
       <div>
-        <label htmlFor="user-email">이메일</label>
+        <label htmlFor="user-email">전화번호</label>
         <br />
         <Input
           name="user-email"

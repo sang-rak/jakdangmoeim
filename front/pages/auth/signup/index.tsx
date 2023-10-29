@@ -61,6 +61,7 @@ const signup = () => {
           <Head>
             <title>회원가입 | 작당모임</title>
           </Head>
+
           <Form onFinish={onSubmit}>
             <div>
               <label htmlFor="user-email">이메일</label>
