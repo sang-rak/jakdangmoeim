@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../hooks/useInput";
 import { SIGN_UP_REQUEST } from "../../../reducers/user";
 import AppLayout from "../../../components/AppLayout";
+import Title from "antd/es/typography/Title";
 
 const ErrorMessage = styled.div`
   color: red;
@@ -59,12 +60,12 @@ const signup = () => {
       <AppLayout>
         <div>
           <Head>
-            <title>회원가입 | 작당모임</title>
+            <Title>회원가입 | 작당모임</Title>
           </Head>
 
           <Form onFinish={onSubmit}>
             <div>
-              <label htmlFor="user-email">이메일</label>
+              <label htmlFor="user-email">전화번호</label>
               <br />
               <Input
                 name="user-email"
