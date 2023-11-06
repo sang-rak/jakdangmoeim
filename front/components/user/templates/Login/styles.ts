@@ -1,4 +1,4 @@
-import { Form, Typography } from "antd";
+import { Flex, Form, Typography } from "antd";
 import styled from "styled-components";
 
 export const StyledTitle = styled.div`
@@ -25,3 +25,15 @@ export const FormWrapper = styled(Form)`
 export const alignOptions = ["flex-start", "center", "flex-end"];
 
 export const { Title } = Typography;
+
+export const FlexWrapper = styled(Flex)`
+  width: 100%;
+`;
+
+export const divWrapper = styled.div`
+  padding: 10px;
+`;
+
+export const AWrapper = styled.a`
+  float: right;
+`;
