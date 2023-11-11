@@ -1,28 +1,19 @@
-import { Flex, Form, Typography } from "antd";
+import { Button, Flex, Form, Typography } from "antd";
+import exp from "constants";
+import Link from "next/link";
 import styled from "styled-components";
 
 export const StyledTitle = styled.div`
   font-size: xx-large;
 `;
 
-export const justifyOptions = [
-  "flex-start",
-  "center",
-  "flex-end",
-  "space-between",
-  "space-around",
-  "space-evenly",
-];
-
-export const ButtonWrapper = styled.div`
-  margin-top: 10px;
-`;
-
 export const FormWrapper = styled(Form)`
   padding: 10px;
 `;
 
-export const alignOptions = ["flex-start", "center", "flex-end"];
+export const FormItemWrapper = styled(Form.Item)`
+  margin-bottom: 10px;
+`;
 
 export const { Title } = Typography;
 
@@ -34,6 +25,16 @@ export const divWrapper = styled.div`
   padding: 10px;
 `;
 
-export const AWrapper = styled.a`
+export const LinkWrapper = styled(Link)`
   float: right;
+  color: #000000;
+  font-size: 12px;
+`;
+
+export const SpanWrapper = styled.span`
+  font-size: 12px;
+`;
+
+export const ButtonWrapper = styled(Button)`
+  background-color: #848484;
 `;
