@@ -9,13 +9,6 @@ const jackdong = ({ Component, pageProps }: AppProps) => {
   return (
     <ConfigProvider>
       <GlobalStyle />
-      {/* 공통 레이아웃 */}
-      <Head>
-        <meta charSet="utf-8" />
-        <title>작당모임</title>
-      </Head>
-
-      {/* 페이지 컴포넌트 */}
       <Component {...pageProps} />
     </ConfigProvider>
   );

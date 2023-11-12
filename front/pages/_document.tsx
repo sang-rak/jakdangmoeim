@@ -8,7 +8,10 @@ import Document, {
 
 const MyDocument = () => (
   <Html lang="en">
-    <Head />
+    <Head>
+      <meta charSet="utf-8" />
+      <title>작당모임</title>
+    </Head>
     <body>
       <Main />
       <NextScript />
