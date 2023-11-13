@@ -1,17 +1,14 @@
 import Document, {
   Html,
-  Head,
   Main,
+  Head,
   NextScript,
   DocumentContext,
 } from "next/document";
 
 const MyDocument = () => (
   <Html lang="en">
-    <Head>
-      <meta charSet="utf-8" />
-      <title>작당모임</title>
-    </Head>
+    <Head />
     <body>
       <Main />
       <NextScript />
