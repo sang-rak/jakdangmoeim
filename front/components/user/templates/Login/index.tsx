@@ -10,9 +10,9 @@ import {
   FormWrapper,
   LinkWrapper,
   SpanWrapper,
-  Title,
 } from "./styles";
 import { CheckCircleFilled, CheckCircleOutlined } from "@ant-design/icons";
+import Title from "../../../common/atoms/Title";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,9 +36,11 @@ const Login = () => {
 
   return (
     <FlexWrapper gap="large" align="center" vertical>
-      <Title>
-        작당<br></br>모임
-      </Title>
+      <div>
+        <Title content="작당" customStyle={{ margin: 0 }} />
+        <Title content="모임" customStyle={{ margin: 0 }} />
+      </div>
+
       <FormWrapper
         name="normal_login"
         className="login-form"

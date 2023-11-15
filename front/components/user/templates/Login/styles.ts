@@ -15,8 +15,6 @@ export const FormItemWrapper = styled(Form.Item)`
   margin-bottom: 10px;
 `;
 
-export const { Title } = Typography;
-
 export const FlexWrapper = styled(Flex)`
   width: 100%;
 `;

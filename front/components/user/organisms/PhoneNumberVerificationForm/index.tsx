@@ -1,6 +1,7 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Head from "next/head";
 import { Form, Input, Checkbox, Button } from "antd";
+import Title from "../../../common/atoms/Title";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -8,10 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../../hooks/useInput";
 import { SIGN_UP_REQUEST } from "../../../../reducers/user";
 import AppLayout from "../../../AppLayout";
-import Title from "../../../common/atoms/Title";
 import { ErrorMessage } from "./styles";
 
-const Signup = () => {
+const PhoneNumberVerificationForm = () => {
   const dispatch = useDispatch();
   const { signUpLoading } = useSelector((state: any) => state.user);
 
@@ -59,6 +59,7 @@ const Signup = () => {
             <Title content="작당" customStyle={{ margin: 0 }} />
             <Title content="모임" customStyle={{ margin: 0 }} />
           </div>
+
           <Form onFinish={onSubmit}>
             <div>
               <label htmlFor="user-email">전화번호</label>
@@ -126,4 +127,4 @@ const Signup = () => {
   );
 };
 
-export default memo(Signup);
+export default PhoneNumberVerificationForm;
