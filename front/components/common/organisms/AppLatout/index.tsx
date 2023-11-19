@@ -19,7 +19,10 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <Col xs={24} md={12}>
           {children}
         </Col>
-        <Col xs={24} md={6}></Col>
+        <Col xs={24} md={6}>
+          <div></div>
+          {/* {me ? <UserProfile /> : <LoginForm />} */}
+        </Col>
       </Row>
     </div>
   );
