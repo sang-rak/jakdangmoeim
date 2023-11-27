@@ -8,6 +8,7 @@ import {
   ButtonWrapper,
   FlexWrapper,
   FormWrapper,
+  LinkWhiteWrapper,
   LinkWrapper,
   SpanWrapper,
 } from "./styles";
@@ -37,10 +38,16 @@ const Login = () => {
 
   return (
     <AppLayout>
-      <FlexWrapper gap="large" align="center" vertical>
+      <FlexWrapper gap="large" vertical>
         <div>
-          <Title content="작당" customStyle={{ margin: 0 }} />
-          <Title content="모임" customStyle={{ margin: 0 }} />
+          <Title
+            content="작당"
+            customStyle={{ margin: 0, textAlign: "center" }}
+          />
+          <Title
+            content="모임"
+            customStyle={{ margin: 0, textAlign: "center" }}
+          />
         </div>
 
         <FormWrapper
@@ -105,11 +112,11 @@ const Login = () => {
               </ButtonWrapper>
             </FlexWrapper>
             <FlexWrapper>
-              <LinkWrapper href="/auth/signup/phonenumberverification">
+              <LinkWhiteWrapper href="/auth/signup/phonenumberverification">
                 <Button type="text" block>
                   작당모임 회원이 아닌가요?
                 </Button>
-              </LinkWrapper>
+              </LinkWhiteWrapper>
             </FlexWrapper>
           </FlexWrapper>
         </FormWrapper>

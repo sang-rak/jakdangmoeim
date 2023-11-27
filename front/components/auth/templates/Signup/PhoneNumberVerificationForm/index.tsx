@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from "react";
-import { Form, Input, Checkbox, Button } from "antd";
+import { Form, Input } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,8 @@ import useInput from "../../../../../hooks/useInput";
 import { SIGN_UP_REQUEST } from "../../../../../reducers/user";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper } from "./styles";
+import { ButtonWrapper, FormWrapper, FlexWrapper } from "./styles";
+import { LinkWrapper } from "../styles";
 
 const PhoneNumberVerificationForm = () => {
   const dispatch = useDispatch();
@@ -52,13 +53,13 @@ const PhoneNumberVerificationForm = () => {
 
   return (
     <AppLayout>
-      <FlexWrapper gap="large" align="center" vertical>
+      <FlexWrapper justify="center" gap="large" vertical>
         <div>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
           <Title content="가입하기" customStyle={{ margin: 0 }} />
         </div>
-        <Form onFinish={onSubmit}>
-          <div>
+        <FormWrapper onFinish={onSubmit}>
+          <Form.Item>
             <label htmlFor="user-email">핸드폰 번호를 입력해주세요.</label>
             <br />
             <Input
@@ -68,13 +69,15 @@ const PhoneNumberVerificationForm = () => {
               required
               onChange={onChangeEmail}
             />
-          </div>
-          <div style={{ marginTop: 10 }}>
-            <Button type="primary" htmlType="submit" loading={signUpLoading}>
-              다음
-            </Button>
-          </div>
-        </Form>
+          </Form.Item>
+          <Form.Item>
+            <LinkWrapper href="/auth/signup/passwordinfo">
+              <ButtonWrapper type="primary" htmlType="submit" block>
+                다음
+              </ButtonWrapper>
+            </LinkWrapper>
+          </Form.Item>
+        </FormWrapper>
       </FlexWrapper>
     </AppLayout>
   );

@@ -22,6 +22,7 @@ export const LinkWrapper = styled(Link)`
   float: right;
   color: #000000;
   font-size: 12px;
+  width: 100%;
 `;
 
 export const ButtonWrapper = styled(Button)`

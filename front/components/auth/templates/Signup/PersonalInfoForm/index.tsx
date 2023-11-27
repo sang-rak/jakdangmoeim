@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from "react";
-import { Form, Input, Checkbox, Button } from "antd";
+import { Form, Input } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import useInput from "../../../../../hooks/useInput";
 import { SIGN_UP_REQUEST } from "../../../../../reducers/user";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper } from "./styles";
+import { FlexWrapper, LinkWrapper, ButtonWrapper } from "./styles";
 
 const PersonalInfoForm = () => {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const PersonalInfoForm = () => {
 
   return (
     <AppLayout>
-      <FlexWrapper gap="large" align="center" vertical>
+      <FlexWrapper gap="large" vertical>
         <div>
           <Title content="회원님을" customStyle={{ margin: 0 }} />
           <Title content="알려주세요" customStyle={{ margin: 0 }} />
@@ -92,11 +92,13 @@ const PersonalInfoForm = () => {
             />
           </div>
 
-          <div style={{ marginTop: 10 }}>
-            <Button type="primary" htmlType="submit" loading={signUpLoading}>
-              다음
-            </Button>
-          </div>
+          <FlexWrapper>
+            <LinkWrapper href="/auth/signup/complete">
+              <ButtonWrapper type="primary" htmlType="submit" block>
+                다음
+              </ButtonWrapper>
+            </LinkWrapper>
+          </FlexWrapper>
         </Form>
       </FlexWrapper>
     </AppLayout>

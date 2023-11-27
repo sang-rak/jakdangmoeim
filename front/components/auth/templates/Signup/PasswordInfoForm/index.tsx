@@ -8,7 +8,8 @@ import useInput from "../../../../../hooks/useInput";
 import { SIGN_UP_REQUEST } from "../../../../../reducers/user";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper } from "./styles";
+import { ErrorMessage, FlexWrapper, LinkWrapper } from "./styles";
+import { ButtonWrapper } from "../styles";
 
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const PasswordInfoForm = () => {
 
   return (
     <AppLayout>
-      <FlexWrapper gap="large" align="center" vertical>
+      <FlexWrapper gap="large" vertical>
         <div>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
           <Title content="가입하기" customStyle={{ margin: 0 }} />
@@ -100,11 +101,13 @@ const PasswordInfoForm = () => {
               )}
             </Checkbox>
           </div>
-          <div style={{ marginTop: 10 }}>
-            <Button type="primary" htmlType="submit" loading={signUpLoading}>
-              다음
-            </Button>
-          </div>
+          <FlexWrapper>
+            <LinkWrapper href="/auth/signup/personalinfo">
+              <ButtonWrapper type="primary" htmlType="submit" block>
+                다음
+              </ButtonWrapper>
+            </LinkWrapper>
+          </FlexWrapper>
         </Form>
       </FlexWrapper>
     </AppLayout>
