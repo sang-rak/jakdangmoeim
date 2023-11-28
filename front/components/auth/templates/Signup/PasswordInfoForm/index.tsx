@@ -9,13 +9,13 @@ import { SIGN_UP_REQUEST } from "../../../../../reducers/user";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
 import { ErrorMessage, FlexWrapper, LinkWrapper } from "./styles";
-import { ButtonWrapper } from "../styles";
+import { ButtonWrapper } from "./styles";
 
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
   const { signUpLoading } = useSelector((state: any) => state.user);
 
-  const [email, onChangeEmail] = useInput("");
+  const [phone, onChangePhone] = useInput("");
   const [nickname, onChangeNickname] = useInput("");
   const [password, onChangePassword] = useInput("");
 
@@ -44,12 +44,12 @@ const PasswordInfoForm = () => {
     if (!term) {
       return setTermError(true);
     }
-    console.log(email, nickname, password);
+    console.log(phone, nickname, password);
     dispatch({
       type: SIGN_UP_REQUEST,
-      data: { email, password, nickname },
+      data: { phone, password, nickname },
     });
-  }, [email, password, passwordCheck, term]);
+  }, [phone, password, passwordCheck, term]);
 
   return (
     <AppLayout>
@@ -59,18 +59,19 @@ const PasswordInfoForm = () => {
           <Title content="가입하기" customStyle={{ margin: 0 }} />
         </div>
         <Form onFinish={onSubmit}>
-          <div>
+          <Form.Item>
             <label htmlFor="user-phone">비밀번호를 입력해주세요</label>
             <br />
             <Input
               name="user-phone"
               type="phone"
-              value={email}
+              value={phone}
               required
-              onChange={onChangeEmail}
+              onChange={onChangePhone}
+              placeholder="전화번호"
             />
-          </div>
-          <div>
+          </Form.Item>
+          <Form.Item>
             <br />
             <Input
               name="user-password"
@@ -78,29 +79,24 @@ const PasswordInfoForm = () => {
               value={password}
               required
               onChange={onChangePassword}
+              placeholder="비밀번호"
             />
-          </div>
-          <div>
+          </Form.Item>
+          <Form.Item>
             <br />
             <Input
               name="user-password-check"
               type="password"
               value={passwordCheck}
+              placeholder="비밀번호 확인"
               required
               onChange={onChangePasswordCheck}
             />
             {passwordError && (
               <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
             )}
-          </div>
-          <div>
-            <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>
-              개인정보 사용을 동의합니다.
-              {termError && (
-                <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>
-              )}
-            </Checkbox>
-          </div>
+          </Form.Item>
+
           <FlexWrapper>
             <LinkWrapper href="/auth/signup/personalinfo">
               <ButtonWrapper type="primary" htmlType="submit" block>

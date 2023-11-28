@@ -9,7 +9,7 @@ import { SIGN_UP_REQUEST } from "../../../../../reducers/user";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
 import { ButtonWrapper, FormWrapper, FlexWrapper } from "./styles";
-import { LinkWrapper } from "../styles";
+import { LinkWrapper } from "./styles";
 
 const PhoneNumberVerificationForm = () => {
   const dispatch = useDispatch();
@@ -67,11 +67,12 @@ const PhoneNumberVerificationForm = () => {
               type="email"
               value={email}
               required
+              placeholder="전화번호"
               onChange={onChangeEmail}
             />
           </Form.Item>
           <Form.Item>
-            <LinkWrapper href="/auth/signup/passwordinfo">
+            <LinkWrapper href="/auth/signup/certificationnumber">
               <ButtonWrapper type="primary" htmlType="submit" block>
                 다음
               </ButtonWrapper>
