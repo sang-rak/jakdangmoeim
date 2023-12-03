@@ -29,7 +29,7 @@ const PasswordInfoForm = () => {
     },
     [password]
   );
-
+  // 개인정보 동의 체크
   const [term, setTerm] = useState(false);
   const [termError, setTermError] = useState(false);
 

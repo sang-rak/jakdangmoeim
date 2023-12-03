@@ -1,83 +1,61 @@
 import React, { memo, useCallback, useState } from "react";
-import { Form, Input } from "antd";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
-
-import { useDispatch, useSelector } from "react-redux";
-
+import { Flex, Form, Input } from "antd";
+import { useRouter } from "next/navigation";
 import useInput from "../../../../../hooks/useInput";
-import { SIGN_UP_REQUEST } from "../../../../../reducers/user";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ButtonWrapper, FormWrapper, FlexWrapper } from "./styles";
-import { LinkWrapper } from "./styles";
+import {
+  ButtonWrapper,
+  FormWrapper,
+  FlexWrapper,
+  ErrorMessage,
+  LinkWrapper,
+} from "./styles";
+
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const PhoneNumberVerificationForm = () => {
-  const dispatch = useDispatch();
-  const { signUpLoading } = useSelector((state: any) => state.user);
-
-  const [email, onChangeEmail] = useInput("");
-  const [nickname, onChangeNickname] = useInput("");
-  const [password, onChangePassword] = useInput("");
-
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-
-  const onChangePasswordCheck = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordCheck(e.target.value);
-      setPasswordError(e.target.value !== password);
-    },
-    [password]
-  );
-
-  const [term, setTerm] = useState(false);
-  const [termError, setTermError] = useState(false);
-
-  const onChangeTerm = useCallback((e: CheckboxChangeEvent) => {
-    setTerm(e.target.checked);
-    setTermError(false);
-  }, []);
+  const [phone, onChangePhone] = useInput("");
+  const [phoneError, setPhoneError] = useState(false);
+  const router = useRouter();
   const onSubmit = useCallback(() => {
-    if (password !== passwordCheck) {
-      return setPasswordError(true);
+    // validation 체크
+    if (phone.length === 11) {
+      setPhoneError(false);
+      router.push("/auth/signup/certificationnumber");
+    } else {
+      return setPhoneError(true);
     }
-    if (!term) {
-      return setTermError(true);
-    }
-    console.log(email, nickname, password);
-    dispatch({
-      type: SIGN_UP_REQUEST,
-      data: { email, password, nickname },
-    });
-  }, [email, password, passwordCheck, term]);
+  }, [phone]);
 
   return (
     <AppLayout>
-      <FlexWrapper justify="center" gap="large" vertical>
-        <div>
+      <LinkWrapper href="/auth/login">
+        <ArrowLeftOutlined />
+      </LinkWrapper>
+      <FlexWrapper gap={30} justify="center" vertical>
+        <Flex align="left" vertical>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
           <Title content="가입하기" customStyle={{ margin: 0 }} />
-        </div>
-        <FormWrapper onFinish={onSubmit}>
+        </Flex>
+        <FormWrapper onFinish={onSubmit} layout="vertical">
+          <Form.Item label="핸드폰 번호를 입력해주세요."></Form.Item>
           <Form.Item>
-            <label htmlFor="user-email">핸드폰 번호를 입력해주세요.</label>
-            <br />
             <Input
-              name="user-email"
-              type="email"
-              value={email}
+              name="user-phone"
+              type="phone"
+              value={phone}
               required
               placeholder="전화번호"
-              onChange={onChangeEmail}
+              onChange={onChangePhone}
             />
+            {phoneError && (
+              <ErrorMessage>전화번호를 다시 확인해주세요.</ErrorMessage>
+            )}
           </Form.Item>
-          <Form.Item>
-            <LinkWrapper href="/auth/signup/certificationnumber">
-              <ButtonWrapper type="primary" htmlType="submit" block>
-                다음
-              </ButtonWrapper>
-            </LinkWrapper>
-          </Form.Item>
+          <ButtonWrapper type="primary" htmlType="submit" block>
+            다음
+          </ButtonWrapper>
         </FormWrapper>
       </FlexWrapper>
     </AppLayout>
