@@ -12,7 +12,7 @@ import {
   LinkWrapper,
 } from "./styles";
 
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 
 const PhoneNumberVerificationForm = () => {
   const [phone, onChangePhone] = useInput("");
@@ -39,20 +39,26 @@ const PhoneNumberVerificationForm = () => {
           <Title content="가입하기" customStyle={{ margin: 0 }} />
         </Flex>
         <FormWrapper onFinish={onSubmit} layout="vertical">
-          <Form.Item label="핸드폰 번호를 입력해주세요."></Form.Item>
+          <Form.Item label="휴대전화번호를 입력해주세요."></Form.Item>
           <Form.Item>
             <Input
               name="user-phone"
               type="phone"
               value={phone}
               required
-              placeholder="전화번호"
+              placeholder="휴대전화번호"
               onChange={onChangePhone}
             />
+          </Form.Item>
+          <Form.Item>
             {phoneError && (
-              <ErrorMessage>전화번호를 다시 확인해주세요.</ErrorMessage>
+              <ErrorMessage>
+                <ExclamationCircleFilled />
+                &ensp;휴대전화번호를 다시 확인 해주세요.
+              </ErrorMessage>
             )}
           </Form.Item>
+
           <ButtonWrapper type="primary" htmlType="submit" block>
             다음
           </ButtonWrapper>
