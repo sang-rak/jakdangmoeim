@@ -1,67 +1,73 @@
 import React, { memo, useCallback, useState } from "react";
-import { Form, Input } from "antd";
-
-import { useDispatch } from "react-redux";
+import { Flex, Form, Input } from "antd";
 
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper, LinkWrapper } from "./styles";
+import { ErrorMessage, FlexWrapper, FormWrapper, LinkWrapper } from "./styles";
 import { ButtonWrapper } from "./styles";
-import { ExclamationCircleFilled } from "@ant-design/icons";
-import Lavel from "../../../../common/atoms/Lavel";
+import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+
+import { useRouter } from "next/navigation";
+import useInput from "../../../../../hooks/useInput";
 
 const CertificationNumber = () => {
-  const dispatch = useDispatch();
-
-  const [certificationnumber, setCertificationNumber] = useState(false);
+  const [certificationnumber, onCertificationnumber] = useInput("");
   const [certificationnumberError, setCertificationnumberError] =
     useState(false);
-  const onSubmit = useCallback(() => {}, []);
-  // "/auth/signup/passwordinfo"
+  const router = useRouter();
+  const onSubmit = useCallback(() => {
+    if (certificationnumber == "123456") {
+      setCertificationnumberError(false);
+      router.push("/auth/signup/passwordinfo");
+    } else {
+      return setCertificationnumberError(true);
+    }
+  }, [certificationnumber]);
+
   return (
     <AppLayout>
-      <FlexWrapper gap="large" vertical>
-        <div>
+      <LinkWrapper href="/auth/signup/phonenumberverification">
+        <ArrowLeftOutlined />
+      </LinkWrapper>
+      <FlexWrapper gap={30} justify="center" vertical>
+        <Flex align="left" vertical>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
           <Title content="가입하기" customStyle={{ margin: 0 }} />
-        </div>
-        <Form onFinish={onSubmit} layout="vertical">
-          <Form>
-            <Lavel
-              content="회원님의 휴대폰으로 전송된 "
-              customStyle={{ margin: 0 }}
-            ></Lavel>
-            <Lavel
-              content="인증번호를 입력해주세요"
-              customStyle={{ margin: 0 }}
-            ></Lavel>
-          </Form>
-
+        </Flex>
+        <FormWrapper onFinish={onSubmit} layout="vertical">
+          <Form.Item>
+            <label>회원님의 휴대폰으로 전송된 </label>
+            <br />
+            <label>인증번호를 입력해주세요 </label>
+          </Form.Item>
           <Form.Item>
             <br />
             <Input
               name="user-certificationnumber-check"
               type="certificationnumber"
               placeholder="인증번호 6자리"
+              onChange={onCertificationnumber}
               suffix={"02:57"}
               required
             />
-            <Form.Item>
-              {certificationnumber && (
+          </Form.Item>
+          <Form.Item>
+            {certificationnumberError && (
+              <>
                 <ErrorMessage>
                   <ExclamationCircleFilled />
                   &ensp;인증번호를 다시 확인 해주세요
                 </ErrorMessage>
-              )}
-            </Form.Item>
+                <ButtonWrapper type="primary" htmlType="submit">
+                  인증번호 다시받기
+                </ButtonWrapper>
+              </>
+            )}
           </Form.Item>
-
-          <FlexWrapper>
-            <ButtonWrapper type="primary" htmlType="submit" block>
-              다음
-            </ButtonWrapper>
-          </FlexWrapper>
-        </Form>
+          <ButtonWrapper type="primary" htmlType="submit" block>
+            다음
+          </ButtonWrapper>
+        </FormWrapper>
       </FlexWrapper>
     </AppLayout>
   );
