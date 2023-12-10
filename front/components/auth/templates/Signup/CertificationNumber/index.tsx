@@ -3,7 +3,13 @@ import { Flex, Form, Input } from "antd";
 
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper, FormWrapper, LinkWrapper } from "./styles";
+import {
+  ButtonOpenWrapper,
+  ErrorMessage,
+  FlexWrapper,
+  FormWrapper,
+  LinkWrapper,
+} from "./styles";
 import { ButtonWrapper } from "./styles";
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 
@@ -54,13 +60,16 @@ const CertificationNumber = () => {
           <Form.Item>
             {certificationnumberError && (
               <>
-                <ErrorMessage>
-                  <ExclamationCircleFilled />
-                  &ensp;인증번호를 다시 확인 해주세요
+                <ErrorMessage justify="space-between" align="center">
+                  <Flex>
+                    <ExclamationCircleFilled />
+                    &ensp;인증번호를 다시 확인 해주세요
+                  </Flex>
+
+                  <ButtonOpenWrapper type="primary" htmlType="submit">
+                    인증번호 다시받기
+                  </ButtonOpenWrapper>
                 </ErrorMessage>
-                <ButtonWrapper type="primary" htmlType="submit">
-                  인증번호 다시받기
-                </ButtonWrapper>
               </>
             )}
           </Form.Item>

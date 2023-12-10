@@ -25,9 +25,15 @@ export const LinkWrapper = styled(Link)`
 `;
 
 export const ButtonWrapper = styled(Button)`
+  float: right;
   background-color: #848484;
 `;
 
-export const ErrorMessage = styled.div`
+export const ButtonOpenWrapper = styled(Button)`
+  float: right;
+  background-color: #000000;
+`;
+
+export const ErrorMessage = styled(Flex)`
   color: red;
 `;
