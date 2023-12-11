@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from "react";
-import { Form, Input, Checkbox, Button } from "antd";
+import { Form, Input, Checkbox, Button, Flex } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -53,15 +53,16 @@ const PasswordInfoForm = () => {
 
   return (
     <AppLayout>
-      <FlexWrapper gap="large" vertical>
-        <div>
+      <FlexWrapper gap={30} justify="center" vertical>
+        <Flex align="left" vertical>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
           <Title content="가입하기" customStyle={{ margin: 0 }} />
-        </div>
+        </Flex>
         <Form onFinish={onSubmit}>
           <Form.Item>
             <label htmlFor="user-phone">비밀번호를 입력해주세요</label>
-            <br />
+          </Form.Item>
+          <Form.Item>
             <Input
               name="user-phone"
               type="phone"
@@ -72,7 +73,6 @@ const PasswordInfoForm = () => {
             />
           </Form.Item>
           <Form.Item>
-            <br />
             <Input
               name="user-password"
               type="password"
@@ -83,7 +83,6 @@ const PasswordInfoForm = () => {
             />
           </Form.Item>
           <Form.Item>
-            <br />
             <Input
               name="user-password-check"
               type="password"
