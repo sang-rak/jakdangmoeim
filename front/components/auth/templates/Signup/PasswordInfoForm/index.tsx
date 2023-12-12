@@ -8,11 +8,14 @@ import useInput from "../../../../../hooks/useInput";
 import { SIGN_UP_REQUEST } from "../../../../../reducers/user";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper, LinkWrapper } from "./styles";
+import { ErrorMessage, FlexWrapper, FormWrapper, LinkWrapper } from "./styles";
 import { ButtonWrapper } from "./styles";
-
+import { useRouter } from "next/navigation";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const { signUpLoading } = useSelector((state: any) => state.user);
 
   const [phone, onChangePhone] = useInput("");
@@ -38,7 +41,7 @@ const PasswordInfoForm = () => {
     setTermError(false);
   }, []);
   const onSubmit = useCallback(() => {
-    if (password !== passwordCheck) {
+    if (password !== passwordCheck && password < 11) {
       return setPasswordError(true);
     }
     if (!term) {
@@ -49,6 +52,7 @@ const PasswordInfoForm = () => {
       type: SIGN_UP_REQUEST,
       data: { phone, password, nickname },
     });
+    router.push("/auth/signup/personalinfo");
   }, [phone, password, passwordCheck, term]);
 
   return (
@@ -58,7 +62,7 @@ const PasswordInfoForm = () => {
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
           <Title content="가입하기" customStyle={{ margin: 0 }} />
         </Flex>
-        <Form onFinish={onSubmit}>
+        <FormWrapper onFinish={onSubmit} layout="vertical">
           <Form.Item>
             <label htmlFor="user-phone">비밀번호를 입력해주세요</label>
           </Form.Item>
@@ -92,18 +96,17 @@ const PasswordInfoForm = () => {
               onChange={onChangePasswordCheck}
             />
             {passwordError && (
-              <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+              <ErrorMessage>
+                <ExclamationCircleFilled />
+                &ensp;비밀번호가 일치하지 않습니다.
+              </ErrorMessage>
             )}
           </Form.Item>
 
-          <FlexWrapper>
-            <LinkWrapper href="/auth/signup/personalinfo">
-              <ButtonWrapper type="primary" htmlType="submit" block>
-                다음
-              </ButtonWrapper>
-            </LinkWrapper>
-          </FlexWrapper>
-        </Form>
+          <ButtonWrapper type="primary" htmlType="submit" block>
+            다음
+          </ButtonWrapper>
+        </FormWrapper>
       </FlexWrapper>
     </AppLayout>
   );
