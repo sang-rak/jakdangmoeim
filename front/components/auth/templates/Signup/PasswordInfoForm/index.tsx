@@ -41,7 +41,7 @@ const PasswordInfoForm = () => {
     setTermError(false);
   }, []);
   const onSubmit = useCallback(() => {
-    if (password !== passwordCheck && password < 11) {
+    if (password !== passwordCheck && password.length < 11) {
       return setPasswordError(true);
     }
     if (!term) {
@@ -95,14 +95,25 @@ const PasswordInfoForm = () => {
               required
               onChange={onChangePasswordCheck}
             />
-            {passwordError && (
+          </Form.Item>
+          <Form.Item>
+            {passwordError ? (
               <ErrorMessage>
                 <ExclamationCircleFilled />
                 &ensp;비밀번호가 일치하지 않습니다.
               </ErrorMessage>
+            ) : password.length > 11 ? (
+              <div>
+                <ExclamationCircleFilled />
+                &ensp;비밀번호 확인이 완료되었습니다.
+              </div>
+            ) : (
+              <ErrorMessage>
+                <ExclamationCircleFilled />
+                &ensp;비밀번호는 11자 이상 입력하여야 합니다.
+              </ErrorMessage>
             )}
           </Form.Item>
-
           <ButtonWrapper type="primary" htmlType="submit" block>
             다음
           </ButtonWrapper>
