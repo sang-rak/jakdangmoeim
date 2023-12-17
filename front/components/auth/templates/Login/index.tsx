@@ -32,7 +32,6 @@ const Login = () => {
   };
 
   const onSubmitForm = useCallback(() => {
-    console.log(cellPhone, password);
     dispatch(loginRequestAction({ cellPhone, password }));
   }, [cellPhone, password]);
 

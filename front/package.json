@@ -27,6 +27,7 @@
     "next-redux-wrapper": "8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-modal": "3.16.1",
     "react-redux": "8.1.1",
     "react-slick": "0.29.0",
     "redux": "4.2.1",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.22.9",
+    "@types/react-modal": "3.16.3",
     "@types/react-slick": "0.23.10",
     "@types/shortid": "0.0.29",
     "@types/styled-components": "5.1.26",

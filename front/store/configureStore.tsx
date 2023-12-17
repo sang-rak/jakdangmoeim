@@ -6,7 +6,6 @@ import reducer from "../reducers";
 import rootSaga from "../sagas";
 
 const configureStore = (context: any) => {
-  console.log(context);
   const sagaMiddleware = createSagaMiddleware();
   const middlewares: any = [sagaMiddleware];
   const enhancer =
