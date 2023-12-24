@@ -17,7 +17,7 @@ const PasswordInfoForm = () => {
   const router = useRouter();
 
   const { signUpLoading } = useSelector((state: any) => state.user);
-  const [isOpen, setOpen] = useState(true); // 약관동의 모달 핸들링
+  const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
   const [marketingAgree, setMarketingAgree] = useState(false); // 마케팅동의 여부
   const [phone, onChangePhone] = useInput("");
   const [nickname, onChangeNickname] = useInput("");
@@ -59,18 +59,25 @@ const PasswordInfoForm = () => {
   }, []);
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck && password.length < 11) {
+      console.log("1번입니다.");
       return setPasswordError(true);
     }
-    if (!term) {
-      return setTermError(true);
-    }
+
+    console.log("3번입니다.");
     handleModalMake();
+    console.log("4번입니다.");
     // dispatch({
     //   type: SIGN_UP_REQUEST,
     //   data: { phone, password, nickname },
     // });
+    //개인정보 동의 여부 확인
+    if (!term) {
+      console.log("2번입니다.");
+      return setTermError(true);
+    }
+
     router.push("/auth/signup/personalinfo");
-  }, [phone, password, passwordCheck, term]);
+  }, [phone, password, passwordCheck, term, isOpen]);
 
   return (
     <AppLayout>
@@ -137,6 +144,30 @@ const PasswordInfoForm = () => {
             다음
           </ButtonWrapper>
           <Modal
+            style={{
+              overlay: {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "rgba(255, 255, 255, 0.75)",
+              },
+              content: {
+                position: "absolute",
+                top: "40px",
+                left: "40px",
+                right: "40px",
+                bottom: "40px",
+                border: "1px solid #ccc",
+                background: "#fff",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "4px",
+                outline: "none",
+                padding: "30px",
+              },
+            }}
             isOpen={isOpen}
             marketingAgree={marketingAgree}
             setMarketingAgree={setMarketingAgree}

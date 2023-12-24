@@ -6,6 +6,7 @@ import { faCircleCheck as faCircleCheckRegular } from "@fortawesome/free-regular
 
 import Tos from "../Tos";
 import { Button } from "antd";
+import { ButtonWrapper, ModalpageWrapper, ReactModalWrapper } from "./styles";
 
 // ModalPropsType 생성
 
@@ -104,7 +105,7 @@ const Modal = ({
     switch (pagestatus) {
       case "약관화면":
         return (
-          <div>
+          <ModalpageWrapper>
             <div>
               <FontAwesomeIcon
                 icon={agree ? faCircleCheckSolid : faCircleCheckRegular}
@@ -137,15 +138,16 @@ const Modal = ({
               마케팅 정보 수신(선택){" "}
               <div onClick={tosMarketingClick}> 내용보기</div>
             </div>
-            <Button
+            <ButtonWrapper
               // type="primary" htmlType="submit" block
               type="primary"
               disabled={disabled}
               onClick={handleClickSubmit}
+              block
             >
               다음
-            </Button>
-          </div>
+            </ButtonWrapper>
+          </ModalpageWrapper>
         );
       case "서비스이용 약관화면":
         return <Tos pagestatus={pagestatus} setPagestatus={setPagestatus} />;
@@ -157,7 +159,7 @@ const Modal = ({
         break;
     }
   };
-  return <ReactModal isOpen={isOpen}>{Modalpage()}</ReactModal>;
+  return <ReactModalWrapper isOpen={isOpen}>{Modalpage()}</ReactModalWrapper>;
 };
 
 export default Modal;
