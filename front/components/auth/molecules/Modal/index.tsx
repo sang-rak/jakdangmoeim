@@ -5,8 +5,13 @@ import { faCircleCheck as faCircleCheckSolid } from "@fortawesome/free-solid-svg
 import { faCircleCheck as faCircleCheckRegular } from "@fortawesome/free-regular-svg-icons";
 
 import Tos from "../Tos";
-import { Button } from "antd";
-import { ButtonWrapper, ModalpageWrapper, ReactModalWrapper } from "./styles";
+import {
+  ButtonWrapper,
+  FlexWrapper,
+  ModalpageWrapper,
+  ReactModalWrapper,
+} from "./styles";
+import { Divider, Flex } from "antd";
 
 // ModalPropsType 생성
 
@@ -106,47 +111,70 @@ const Modal = ({
       case "약관화면":
         return (
           <ModalpageWrapper>
-            <div>
-              <FontAwesomeIcon
-                icon={agree ? faCircleCheckSolid : faCircleCheckRegular}
-                onClick={handleAllChange}
-              />
-              약관 전체 동의하기
-            </div>
-            <hr />
-            <div>
-              <FontAwesomeIcon
-                icon={serviceAgree ? faCircleCheckSolid : faCircleCheckRegular}
-                onClick={serviceBtnEvent}
-              />
-              서비스 이용약관 <div onClick={tosServiceClick}> 내용보기</div>
-            </div>
-            <div>
-              <FontAwesomeIcon
-                icon={privacyAgree ? faCircleCheckSolid : faCircleCheckRegular}
-                onClick={privacyBtnEvent}
-              />
-              개인정보 처리방침 <div onClick={tosPrivacyClick}> 내용보기</div>
-            </div>
-            <div>
-              <FontAwesomeIcon
-                icon={
-                  marketingAgree ? faCircleCheckSolid : faCircleCheckRegular
-                }
-                onClick={marketingBtnEvent}
-              />
-              마케팅 정보 수신(선택){" "}
-              <div onClick={tosMarketingClick}> 내용보기</div>
-            </div>
-            <ButtonWrapper
-              // type="primary" htmlType="submit" block
-              type="primary"
-              disabled={disabled}
-              onClick={handleClickSubmit}
-              block
-            >
-              다음
-            </ButtonWrapper>
+            <FlexWrapper gap={30} justify="center" vertical>
+              <Flex vertical>
+                <Flex>
+                  <FontAwesomeIcon
+                    icon={agree ? faCircleCheckSolid : faCircleCheckRegular}
+                    onClick={handleAllChange}
+                  />
+                  <Flex>&nbsp;&nbsp;&nbsp;&nbsp;약관 전체 동의하기</Flex>
+                </Flex>
+                <Divider
+                  style={{
+                    borderWidth: "2px",
+                    marginTop: "10px",
+                    marginBottom: "5px",
+                  }}
+                />
+              </Flex>
+              <Flex justify="space-between">
+                <Flex>
+                  <FontAwesomeIcon
+                    icon={
+                      serviceAgree ? faCircleCheckSolid : faCircleCheckRegular
+                    }
+                    onClick={serviceBtnEvent}
+                  ></FontAwesomeIcon>
+                  <Flex>&nbsp;&nbsp;&nbsp;&nbsp;서비스 이용약관 </Flex>
+                </Flex>
+                <Flex onClick={tosServiceClick}> 내용보기</Flex>
+              </Flex>
+
+              <Flex justify="space-between">
+                <Flex>
+                  <FontAwesomeIcon
+                    icon={
+                      privacyAgree ? faCircleCheckSolid : faCircleCheckRegular
+                    }
+                    onClick={privacyBtnEvent}
+                  />
+                  <Flex>&nbsp;&nbsp;&nbsp;&nbsp;개인정보 처리방침</Flex>
+                </Flex>
+                <Flex onClick={tosPrivacyClick}> 내용보기</Flex>
+              </Flex>
+              <Flex justify="space-between">
+                <Flex>
+                  <FontAwesomeIcon
+                    icon={
+                      marketingAgree ? faCircleCheckSolid : faCircleCheckRegular
+                    }
+                    onClick={marketingBtnEvent}
+                  />
+                  <Flex>&nbsp;&nbsp;&nbsp;&nbsp;마케팅 정보 수신(선택)</Flex>
+                </Flex>
+                <Flex onClick={tosMarketingClick}> 내용보기</Flex>
+              </Flex>
+              <ButtonWrapper
+                // type="primary" htmlType="submit" block
+                type="primary"
+                disabled={disabled}
+                onClick={handleClickSubmit}
+                block
+              >
+                다음
+              </ButtonWrapper>
+            </FlexWrapper>
           </ModalpageWrapper>
         );
       case "서비스이용 약관화면":
