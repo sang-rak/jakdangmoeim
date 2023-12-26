@@ -8,8 +8,7 @@ export const ModalpageWrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.75);
-  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 1);
 `;
 
 export const ButtonWrapper = styled(Button)`
@@ -19,9 +18,6 @@ export const ButtonWrapper = styled(Button)`
 export const FlexWrapper = styled(Flex)``;
 
 export const ReactModalWrapper = styled(ReactModal)`
-  /* background-color: rgba(255, 255, 255, 0.75); */
-  /* position: absolute; */
-
   left: 0;
   right: 0;
   bottom: 0;
