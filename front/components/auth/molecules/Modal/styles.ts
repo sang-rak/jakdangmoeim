@@ -8,6 +8,7 @@ export const ModalpageWrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
+  border-radius: 5% 5% 0% 0%;
   background-color: rgba(255, 255, 255, 1);
 `;
 
@@ -18,6 +19,8 @@ export const ButtonWrapper = styled(Button)`
 export const FlexWrapper = styled(Flex)``;
 
 export const ReactModalWrapper = styled(ReactModal)`
+  /* filter: blur(5px); */
+
   left: 0;
   right: 0;
   bottom: 0;

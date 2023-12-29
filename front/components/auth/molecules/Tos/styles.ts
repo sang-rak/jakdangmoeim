@@ -11,6 +11,6 @@ export const TosWrapper = styled.div`
   background-color: rgba(255, 255, 255, 1);
 
   /* 스크롤 */
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 50px);
   overflow-y: auto;
 `;

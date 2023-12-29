@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactModal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck as faCircleCheckSolid } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck as faCircleCheckRegular } from "@fortawesome/free-regular-svg-icons";
@@ -11,7 +10,7 @@ import {
   ModalpageWrapper,
   ReactModalWrapper,
 } from "./styles";
-import { Divider, Flex } from "antd";
+import { Divider, Flex, Typography } from "antd";
 
 // ModalPropsType 생성
 
@@ -138,7 +137,10 @@ const Modal = ({
                   ></FontAwesomeIcon>
                   <Flex>&nbsp;&nbsp;&nbsp;&nbsp;서비스 이용약관 </Flex>
                 </Flex>
-                <Flex onClick={tosServiceClick}> 내용보기</Flex>
+                <Flex onClick={tosServiceClick}>
+                  {" "}
+                  <Typography.Link>내용보기</Typography.Link>
+                </Flex>
               </Flex>
 
               <Flex justify="space-between">
@@ -151,7 +153,9 @@ const Modal = ({
                   />
                   <Flex>&nbsp;&nbsp;&nbsp;&nbsp;개인정보 처리방침</Flex>
                 </Flex>
-                <Flex onClick={tosPrivacyClick}> 내용보기</Flex>
+                <Flex onClick={tosPrivacyClick}>
+                  <Typography.Link>내용보기</Typography.Link>
+                </Flex>
               </Flex>
               <Flex justify="space-between">
                 <Flex>
@@ -163,7 +167,10 @@ const Modal = ({
                   />
                   <Flex>&nbsp;&nbsp;&nbsp;&nbsp;마케팅 정보 수신(선택)</Flex>
                 </Flex>
-                <Flex onClick={tosMarketingClick}> 내용보기</Flex>
+                <Flex onClick={tosMarketingClick}>
+                  {" "}
+                  <Typography.Link>내용보기</Typography.Link>
+                </Flex>
               </Flex>
               <ButtonWrapper
                 // type="primary" htmlType="submit" block
@@ -187,7 +194,19 @@ const Modal = ({
         break;
     }
   };
-  return <ReactModalWrapper isOpen={isOpen}>{Modalpage()}</ReactModalWrapper>;
+  return (
+    <ReactModalWrapper
+      style={{
+        overlay: {
+          backgroundColor: "rgba(115, 115, 115, 0.75)",
+          backdropFilter: "blur(2px)",
+        },
+      }}
+      isOpen={isOpen}
+    >
+      {Modalpage()}
+    </ReactModalWrapper>
+  );
 };
 
 export default Modal;
