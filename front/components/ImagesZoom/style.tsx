@@ -1,14 +1,5 @@
 import { CloseOutlined } from "@ant-design/icons";
-import styled, { createGlobalStyle } from "styled-components";
-
-export const Global = createGlobalStyle`
-  .slick-slide {
-    display: inline-block;
-  .ant-card-cover {
-    transform: none !important;
-  }
-  }
-`;
+import styled from "styled-components";
 
 export const Overlay = styled.div`
   position: fixed;

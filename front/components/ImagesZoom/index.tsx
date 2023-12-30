@@ -3,7 +3,6 @@ import Slick from "react-slick";
 
 import {
   CloseBtn,
-  Global,
   Header,
   ImgWrapper,
   Indicator,
@@ -23,7 +22,6 @@ const ImagesZoom = ({ images, onClose }: ImagesZoomProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   return (
     <Overlay>
-      <Global />
       <Header>
         <h1>상세 이미지</h1>
         <CloseBtn onClick={onClose}>X</CloseBtn>
