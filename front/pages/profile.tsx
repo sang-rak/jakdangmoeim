@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import AppLayout from "../components/AppLayout";
+import AppLayout from "../components/common/organisms/AppLatout";
 import Head from "next/head";
 import Router from "next/router";
 import NicknameEditForm from "../components/NIcknameEditForm";
