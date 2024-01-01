@@ -35,7 +35,7 @@ const CertificationNumber = () => {
       <LinkWrapper href="/auth/signup/phonenumberverification">
         <ArrowLeftOutlined />
       </LinkWrapper>
-      <FlexWrapper gap={30} justify="center" vertical>
+      <FlexWrapper gap={100} justify="center" vertical>
         <Flex align="left" vertical>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
           <Title content="가입하기" customStyle={{ margin: 0 }} />
