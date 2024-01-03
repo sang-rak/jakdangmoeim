@@ -7,10 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../../../hooks/useInput";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper, FormWrapper, LinkWrapper } from "./styles";
-import { ButtonWrapper } from "./styles";
+import {
+  ErrorMessage,
+  FlexWrapper,
+  FormWrapper,
+  LinkWrapper,
+  ButtonWrapper,
+} from "./styles";
 import { useRouter } from "next/navigation";
-import { ExclamationCircleFilled } from "@ant-design/icons";
+import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import Modal from "../../../molecules/Modal";
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
@@ -81,6 +86,9 @@ const PasswordInfoForm = () => {
 
   return (
     <AppLayout>
+      <LinkWrapper href="/auth/signup/certificationnumber">
+        <ArrowLeftOutlined />
+      </LinkWrapper>
       <FlexWrapper gap={100} justify="center" vertical>
         <Flex align="left" vertical>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
