@@ -1,10 +1,13 @@
+
 import React, { memo, useCallback, useState } from "react";
+
 import { DatePicker, Flex, Form, Input, Select } from "antd";
 
 import useInput from "../../../../../hooks/useInput";
 
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
+
 import {
   FlexWrapper,
   LinkWrapper,
@@ -13,12 +16,12 @@ import {
   ErrorMessage,
 } from "./styles";
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+
 import { useRouter } from "next/navigation";
 
 const PersonalInfoForm = () => {
   const [nickname, onChangeNickname] = useInput("");
   const router = useRouter();
-
   const [nicknameError, setNicknameError] = useState(false);
 
   const onSubmit = useCallback(() => {
@@ -27,6 +30,7 @@ const PersonalInfoForm = () => {
     }
     router.push("/auth/signup/complete");
   }, [nickname]);
+
   {
     /* <LinkWrapper href="/auth/signup/complete"></LinkWrapper> */
   }
@@ -56,6 +60,7 @@ const PersonalInfoForm = () => {
               placeholder="닉네임"
             />
           </Form.Item>
+
           <Form.Item>
             {nicknameError ? (
               <ErrorMessage>
@@ -84,7 +89,6 @@ const PersonalInfoForm = () => {
               format="YYYY/MM/DD"
             />
           </Form.Item>
-
           <ButtonWrapper type="primary" htmlType="submit" block>
             다음
           </ButtonWrapper>
