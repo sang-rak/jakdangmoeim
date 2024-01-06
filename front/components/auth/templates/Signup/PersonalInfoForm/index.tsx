@@ -20,19 +20,28 @@ const PersonalInfoForm = () => {
   const router = useRouter();
 
   const [nicknameError, setNicknameError] = useState(false);
+  const [gender, onChangeGender] = useState("");
+  const [birthday, onChangeBirthday] = useState("");
 
   const onSubmit = useCallback(() => {
+    // 중복아이디 체크
     if (nickname == "중복아이디") {
       return setNicknameError(true);
     }
+    // 성별, 생일 체크
+    if (gender == "" || birthday == "") {
+      return;
+    }
     router.push("/auth/signup/complete");
-  }, [nickname]);
-  {
-    /* <LinkWrapper href="/auth/signup/complete"></LinkWrapper> */
-  }
+  }, [nickname, gender, birthday]);
+
   // 성별 변경
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+    onChangeGender(value);
+  };
+
+  const handleBirthdayChange = (value: any, dateString: any) => {
+    onChangeBirthday(dateString);
   };
 
   return (
@@ -82,6 +91,7 @@ const PersonalInfoForm = () => {
               placeholder="생일"
               style={{ width: "100%" }}
               format="YYYY/MM/DD"
+              onChange={handleBirthdayChange}
             />
           </Form.Item>
 
