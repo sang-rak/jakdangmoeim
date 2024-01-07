@@ -12,10 +12,7 @@ export const FormItemWrapper = styled(Form.Item)`
 
 export const FlexWrapper = styled(Flex)`
   width: 100%;
-`;
-
-export const divWrapper = styled.div`
-  padding: 10px;
+  min-height: 100%;
 `;
 
 export const LinkWrapper = styled(Link)`
@@ -26,6 +23,8 @@ export const LinkWrapper = styled(Link)`
 
 export const ButtonWrapper = styled(Button)`
   background-color: #848484;
+  margin-top: 60%;
+  width: 100%;
 `;
 
 export const ErrorMessage = styled.div`
