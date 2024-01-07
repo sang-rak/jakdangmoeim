@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useState } from "react";
-import { Form, Input, Checkbox, Button, Flex } from "antd";
+import { Form, Input, Flex } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import useInput from "../../../../../hooks/useInput";
 import AppLayout from "../../../../common/organisms/AppLatout";
@@ -44,14 +44,6 @@ const PasswordInfoForm = () => {
   const handleModalMake = () => {
     setOpen(true);
   };
-
-  // const onChangePasswordCheck = useCallback(
-  //   (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     setPasswordCheck(e.target.value);
-  //     setPasswordError(e.target.value !== password);
-  //   },
-  //   [password]
-  // );
 
   // 개인정보 동의 체크
   const [term, setTerm] = useState(false);
