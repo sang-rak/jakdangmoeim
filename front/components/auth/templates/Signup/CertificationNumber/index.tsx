@@ -15,13 +15,16 @@ import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 
 import { useRouter } from "next/navigation";
 import useInput from "../../../../../hooks/useInput";
+import { useSelector } from "react-redux";
 
 const CertificationNumber = () => {
+  const phone = useSelector((state: any) => state.auth.phone); // 추후 수정
   const [certificationnumber, onCertificationnumber] = useInput("");
   const [certificationnumberError, setCertificationnumberError] =
     useState(false);
   const router = useRouter();
   const onSubmit = useCallback(() => {
+    console.log(phone); // 추후 수정
     if (certificationnumber == "123456") {
       setCertificationnumberError(false);
       router.push("/auth/signup/passwordinfo");
