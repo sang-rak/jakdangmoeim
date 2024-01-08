@@ -2,7 +2,7 @@ import React, { memo, useCallback, useState } from "react";
 import { Form, Input, Flex } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import useInput from "../../../../../hooks/useInput";
 import AppLayout from "../../../../common/organisms/AppLatout";
@@ -19,6 +19,7 @@ import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import Modal from "../../../molecules/Modal";
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
+  const phone1 = useSelector((state: any) => state.auth.phone); // 추후 수정
   const router = useRouter();
   const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
   const [marketingAgree, setMarketingAgree] = useState(false); // 마케팅동의 여부
@@ -54,6 +55,7 @@ const PasswordInfoForm = () => {
     setTermError(false);
   }, []);
   const onSubmit = useCallback(() => {
+    console.log(phone1);
     if (password !== passwordCheck) {
       return setPasswordError(true);
     }
@@ -89,7 +91,7 @@ const PasswordInfoForm = () => {
             <Input
               name="user-phone"
               type="phone"
-              value={phone}
+              value={phone1}
               required
               onChange={onChangePhone}
               placeholder="전화번호"

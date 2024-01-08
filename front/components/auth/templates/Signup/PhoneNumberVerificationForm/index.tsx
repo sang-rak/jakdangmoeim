@@ -13,15 +13,21 @@ import {
 } from "./styles";
 
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { setPhone } from "../../../../../hooks/useAuth";
 
 const PhoneNumberVerificationForm = () => {
   const [phone, onChangePhone] = useInput("");
   const [phoneError, setPhoneError] = useState(false);
   const router = useRouter();
+
+  const dispatch = useDispatch();
+
   const onSubmit = useCallback(() => {
     // validation 체크
     if (phone.length === 11) {
       setPhoneError(false);
+      dispatch(setPhone(phone)); // phone 정보 설정
       router.push("/auth/signup/certificationnumber");
     } else {
       return setPhoneError(true);
@@ -58,7 +64,6 @@ const PhoneNumberVerificationForm = () => {
               </ErrorMessage>
             )}
           </Form.Item>
-
           <ButtonWrapper type="primary" htmlType="submit" block>
             다음
           </ButtonWrapper>
