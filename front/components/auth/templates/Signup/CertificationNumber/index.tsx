@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Flex, Form, Input } from "antd";
 
 import AppLayout from "../../../../common/organisms/AppLatout";
@@ -15,23 +15,61 @@ import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 
 import { useRouter } from "next/navigation";
 import useInput from "../../../../../hooks/useInput";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPhone } from "../../../../../hooks/useAuth";
 
 const CertificationNumber = () => {
-  const phone = useSelector((state: any) => state.auth.phone); // 추후 수정
+  const phone = useSelector((state: any) => state.auth.phone);
+  const crtificationNumber = useSelector(
+    (state: any) => state.auth.crtificationNumber
+  );
   const [certificationnumber, onCertificationnumber] = useInput("");
   const [certificationnumberError, setCertificationnumberError] =
     useState(false);
   const router = useRouter();
+  const targetTime = new Date().getTime() + 3900000;
+
+  const dispatch = useDispatch();
+
   const onSubmit = useCallback(() => {
-    console.log(phone); // 추후 수정
-    if (certificationnumber == "123456") {
+    console.log(crtificationNumber);
+    if (certificationnumber === crtificationNumber) {
       setCertificationnumberError(false);
       router.push("/auth/signup/passwordinfo");
     } else {
       return setCertificationnumberError(true);
     }
   }, [certificationnumber]);
+
+  // 인증번호 다시 받기
+  const handleCrtificationNumberRequest = useCallback(() => {
+    dispatch(setPhone(phone));
+  }, [phone]);
+
+  const MINUTES_IN_MS = 3 * 60 * 1000;
+  const INTERVAL = 1000;
+  const [timeLeft, setTimeLeft] = useState<number>(MINUTES_IN_MS);
+
+  const minutes = String(Math.floor((timeLeft / (1000 * 60)) % 60)).padStart(
+    2,
+    "0"
+  );
+  const second = String(Math.floor((timeLeft / 1000) % 60)).padStart(2, "0");
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - INTERVAL);
+    }, INTERVAL);
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      console.log("타이머가 종료되었습니다.");
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [timeLeft]);
 
   return (
     <AppLayout>
@@ -56,7 +94,7 @@ const CertificationNumber = () => {
               type="certificationnumber"
               placeholder="인증번호 6자리"
               onChange={onCertificationnumber}
-              suffix={"02:57"}
+              suffix={minutes + ":" + second}
               required
             />
           </Form.Item>
@@ -69,7 +107,10 @@ const CertificationNumber = () => {
                     &ensp;인증번호를 다시 확인 해주세요
                   </Flex>
 
-                  <ButtonOpenWrapper type="primary" htmlType="submit">
+                  <ButtonOpenWrapper
+                    type="primary"
+                    onClick={handleCrtificationNumberRequest}
+                  >
                     인증번호 다시받기
                   </ButtonOpenWrapper>
                 </ErrorMessage>
