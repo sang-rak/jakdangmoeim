@@ -28,6 +28,7 @@ const PhoneNumberVerificationForm = () => {
     if (phone.length === 11) {
       setPhoneError(false);
       dispatch(setPhone(phone)); // phone 정보 설정
+
       router.push("/auth/signup/certificationnumber");
     } else {
       return setPhoneError(true);

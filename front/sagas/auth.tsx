@@ -1,5 +1,5 @@
 import axios from "axios";
-import { all, delay, fork, put, takeLatest } from "redux-saga/effects";
+import { all, call, delay, fork, put, takeLatest } from "redux-saga/effects";
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -75,11 +75,20 @@ function* signUp() {
   }
 }
 
-function* signUpInfo(action: any) {
+function phoneCertificationnumberAPI(data: any): any {
+  console.log(data);
+  // return axios.post("/api/signUp")
+  return data.substr(-4);
+}
+
+function* phoneCertificationnumber(action: any): any {
   try {
+    const result = yield call(phoneCertificationnumberAPI, action.data);
+    const crtificationNumber = result;
     yield put({
       type: AUTH_SET_PHONE_SUCCESS,
       data: action.data,
+      crtificationNumber: crtificationNumber,
     });
   } catch (err: any) {
     yield put({
@@ -101,8 +110,8 @@ function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
-function* watchSignInfo() {
-  yield takeLatest(AUTH_SET_PHONE_REQUEST, signUpInfo);
+function* watchPhoneCertificationnumber() {
+  yield takeLatest(AUTH_SET_PHONE_REQUEST, phoneCertificationnumber);
 }
 
 export default function* userSaga() {
@@ -110,6 +119,6 @@ export default function* userSaga() {
     fork(watchLogIn), // call
     fork(watchLogOut),
     fork(watchSignUp),
-    fork(watchSignInfo),
+    fork(watchPhoneCertificationnumber),
   ]);
 }

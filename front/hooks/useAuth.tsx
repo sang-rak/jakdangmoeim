@@ -1,4 +1,6 @@
+import { AUTH_SET_PHONE_REQUEST } from "../reducers/auth";
+
 export const setPhone = (phone: string) => ({
-  type: "AUTH_SET_PHONE_REQUEST",
+  type: AUTH_SET_PHONE_REQUEST,
   data: phone,
 });

@@ -26,6 +26,7 @@ export interface State {
   signUpData: any;
   loginData: any;
   phone: string | null;
+  crtificationNumber: string | null;
 }
 
 export const initialState: State = {
@@ -43,6 +44,7 @@ export const initialState: State = {
   signUpData: {},
   loginData: {},
   phone: null,
+  crtificationNumber: null,
 };
 
 export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
@@ -137,9 +139,6 @@ const reducer = (state = initialState, action: any) =>
         draft.signUpLoading = false;
         draft.signUpError = action.error;
         break;
-      // case SET_PHONE:
-      //   draft.phone = action.data;
-      //   break;
       case AUTH_SET_PHONE_REQUEST:
         draft.phoneLoading = true;
         draft.phoneError = null;
@@ -147,12 +146,13 @@ const reducer = (state = initialState, action: any) =>
         break;
       case AUTH_SET_PHONE_SUCCESS:
         draft.phone = action.data;
-        draft.signUpLoading = false;
-        draft.signUpDone = true;
+        draft.crtificationNumber = action.crtificationNumber;
+        draft.phoneLoading = false;
+        draft.phoneDone = true;
         break;
       case AUTH_SET_PHONE_FAILURE:
-        draft.signUpLoading = false;
-        draft.signUpError = action.error;
+        draft.phoneLoading = false;
+        draft.phoneError = action.error;
         break;
       default:
         break;
