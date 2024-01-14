@@ -19,10 +19,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPhone } from "../../../../../hooks/useAuth";
 
 const CertificationNumber = () => {
-  const phone = useSelector((state: any) => state.auth.phone);
-  const crtificationNumber = useSelector(
-    (state: any) => state.auth.crtificationNumber
+  const { phone, certificationNumberCheck } = useSelector(
+    (state: any) => state.auth.signUpData
   );
+
   const [certificationnumber, onCertificationnumber] = useInput("");
   const [certificationnumberError, setCertificationnumberError] =
     useState(false);
@@ -30,7 +30,8 @@ const CertificationNumber = () => {
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(() => {
-    if (certificationnumber === crtificationNumber) {
+    console.log(certificationNumberCheck);
+    if (certificationnumber === certificationNumberCheck) {
       setCertificationnumberError(false);
       router.push("/auth/signup/passwordinfo");
     } else {

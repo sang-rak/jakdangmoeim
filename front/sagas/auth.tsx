@@ -84,11 +84,11 @@ function phoneCertificationnumberAPI(data: any): any {
 function* phoneCertificationnumber(action: any): any {
   try {
     const result = yield call(phoneCertificationnumberAPI, action.data);
-    const crtificationNumber = result;
+    const certificationNumberCheck = result;
     yield put({
       type: AUTH_SET_PHONE_SUCCESS,
       data: action.data,
-      crtificationNumber: crtificationNumber,
+      certificationNumberCheck: certificationNumberCheck,
     });
   } catch (err: any) {
     yield put({

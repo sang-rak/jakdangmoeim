@@ -18,9 +18,10 @@ import { useRouter } from "next/navigation";
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import Modal from "../../../molecules/Modal";
 import { setPassword } from "../../../../../hooks/useAuth";
+
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
-  const phone = useSelector((state: any) => state.auth.phone); // 추후 수정
+  const phone = useSelector((state: any) => state.auth.signUpData.phone);
   const router = useRouter();
   const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
   const [marketingAgree, setMarketingAgree] = useState(false); // 마케팅동의 여부

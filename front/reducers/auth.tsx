@@ -2,8 +2,10 @@ import { produce } from "immer";
 
 export interface User {
   id?: number;
-  nickname: string;
-  phone: string;
+  nickname?: string | null;
+  phone?: string | null;
+  password?: string | null;
+  certificationNumber?: string | null;
 }
 
 export interface Info {
@@ -23,10 +25,10 @@ export interface State {
   signUpDone: boolean;
   signUpError: any;
   me: User | null;
-  signUpData: any;
+  signUpData: User | null;
   loginData: any;
   phone: string | null;
-  crtificationNumber: string | null;
+  certificationNumberCheck: string | null;
 }
 
 export const initialState: State = {
@@ -41,10 +43,10 @@ export const initialState: State = {
   signUpDone: false,
   signUpError: null,
   me: null,
-  signUpData: {},
+  signUpData: null,
   loginData: {},
   phone: null,
-  crtificationNumber: null,
+  certificationNumberCheck: null,
 };
 
 export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
@@ -148,8 +150,14 @@ const reducer = (state = initialState, action: any) =>
         draft.phoneDone = false;
         break;
       case AUTH_SET_PHONE_SUCCESS:
-        draft.phone = action.data;
-        draft.crtificationNumber = action.crtificationNumber;
+        draft.signUpData = {
+          ...draft.signUpData,
+          certificationNumberCheck: action.certificationNumberCheck,
+        };
+        draft.signUpData = {
+          ...draft.signUpData,
+          phone: action.data,
+        };
         draft.phoneLoading = false;
         draft.phoneDone = true;
         break;
@@ -158,7 +166,10 @@ const reducer = (state = initialState, action: any) =>
         draft.phoneError = action.error;
         break;
       case AUTH_SET_PASSWORD_REQUEST:
-        draft.password = action.data;
+        draft.signUpData = {
+          ...draft.signUpData,
+          password: action.data,
+        };
         break;
 
       default:
