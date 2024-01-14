@@ -59,10 +59,13 @@ export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
-// export const SET_PHONE = "SET_PHONE";
 export const AUTH_SET_PHONE_REQUEST = "AUTH_SET_PHONE_REQUEST";
 export const AUTH_SET_PHONE_SUCCESS = "AUTH_SET_PHONE_SUCCESS";
 export const AUTH_SET_PHONE_FAILURE = "AUTH_SET_PHONE_FAILURE";
+
+export const AUTH_SET_PASSWORD_REQUEST = "AUTH_SET_PASSWORD_REQUEST";
+export const AUTH_SET_PASSWORD_SUCCESS = "AUTH_SET_PASSWORD_SUCCESS";
+export const AUTH_SET_PASSWORD_FAILURE = "AUTH_SET_PASSWORD_FAILURE";
 
 // action creator
 export const loginRequestAction = (data: any) => {
@@ -154,6 +157,10 @@ const reducer = (state = initialState, action: any) =>
         draft.phoneLoading = false;
         draft.phoneError = action.error;
         break;
+      case AUTH_SET_PASSWORD_REQUEST:
+        draft.password = action.data;
+        break;
+
       default:
         break;
     }
