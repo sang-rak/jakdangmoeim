@@ -19,21 +19,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPhone } from "../../../../../hooks/useAuth";
 
 const CertificationNumber = () => {
-  const phone = useSelector((state: any) => state.auth.phone);
-  const crtificationNumber = useSelector(
-    (state: any) => state.auth.crtificationNumber
+  const { phone, certificationNumberCheck } = useSelector(
+    (state: any) => state.auth.signUpData
   );
+
   const [certificationnumber, onCertificationnumber] = useInput("");
   const [certificationnumberError, setCertificationnumberError] =
     useState(false);
   const router = useRouter();
-  const targetTime = new Date().getTime() + 3900000;
-
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(() => {
-    console.log(crtificationNumber);
-    if (certificationnumber === crtificationNumber) {
+    console.log(certificationNumberCheck);
+    if (certificationnumber === certificationNumberCheck) {
       setCertificationnumberError(false);
       router.push("/auth/signup/passwordinfo");
     } else {
@@ -63,7 +61,6 @@ const CertificationNumber = () => {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      console.log("타이머가 종료되었습니다.");
     }
 
     return () => {

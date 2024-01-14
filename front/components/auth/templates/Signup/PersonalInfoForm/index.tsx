@@ -1,4 +1,3 @@
-
 import React, { memo, useCallback, useState } from "react";
 
 import { DatePicker, Flex, Form, Input, Select } from "antd";
@@ -38,7 +37,6 @@ const PersonalInfoForm = () => {
     }
     router.push("/auth/signup/complete");
   }, [nickname, gender, birthday]);
-
 
   // 성별 변경
   const handleChange = (value: string) => {

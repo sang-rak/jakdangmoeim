@@ -17,23 +17,25 @@ import {
 import { useRouter } from "next/navigation";
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import Modal from "../../../molecules/Modal";
+import { setPassword } from "../../../../../hooks/useAuth";
+
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
-  const phone1 = useSelector((state: any) => state.auth.phone); // 추후 수정
+  const phone = useSelector((state: any) => state.auth.signUpData.phone);
   const router = useRouter();
   const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
   const [marketingAgree, setMarketingAgree] = useState(false); // 마케팅동의 여부
-  const [phone, onChangePhone] = useInput("");
+
   const [password, onChangePassword] = useInput("");
   const [passwordCheck, onChangePasswordCheck] = useInput("");
 
-  // const [passwordCheck, setPasswordCheck] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordCountError, setPasswordCountError] = useState(false);
   // 필수 약관 동의시 필수정보화면 전환
   const handleModalSubmit = () => {
     // 비지니스 로직
     setOpen(false);
+    dispatch(setPassword(password));
     router.push("/auth/signup/personalinfo");
   };
 
@@ -46,16 +48,7 @@ const PasswordInfoForm = () => {
     setOpen(true);
   };
 
-  // 개인정보 동의 체크
-  const [term, setTerm] = useState(false);
-  const [termError, setTermError] = useState(false);
-
-  const onChangeTerm = useCallback((e: CheckboxChangeEvent) => {
-    setTerm(e.target.checked);
-    setTermError(false);
-  }, []);
   const onSubmit = useCallback(() => {
-    console.log(phone1);
     if (password !== passwordCheck) {
       return setPasswordError(true);
     }
@@ -63,15 +56,7 @@ const PasswordInfoForm = () => {
       return setPasswordCountError(true);
     }
     handleModalMake();
-
-    //개인정보 동의 여부 확인
-    if (!term) {
-      console.log("2번입니다.");
-      return setTermError(true);
-    }
-
-    router.push("/auth/signup/personalinfo");
-  }, [phone, password, passwordCheck, term, isOpen]);
+  }, [phone, password, passwordCheck, isOpen]);
 
   return (
     <AppLayout>
@@ -91,9 +76,8 @@ const PasswordInfoForm = () => {
             <Input
               name="user-phone"
               type="phone"
-              value={phone1}
+              value={phone}
               required
-              onChange={onChangePhone}
               placeholder="전화번호"
             />
           </Form.Item>
