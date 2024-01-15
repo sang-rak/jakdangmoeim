@@ -38,7 +38,7 @@ export const AuthsetBirthday = (birthday: string) => ({
   data: birthday,
 });
 
-export const SignupRequestAction = (data: string[]) => {
+export const SignupRequestAction = (data: {}) => {
   return {
     type: SIGN_UP_REQUEST,
     data,

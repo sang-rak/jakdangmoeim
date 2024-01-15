@@ -10,12 +10,11 @@ import {
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE,
-} from "../reducers/user";
-import {
   AUTH_SET_PHONE_REQUEST,
   AUTH_SET_PHONE_FAILURE,
   AUTH_SET_PHONE_SUCCESS,
 } from "../reducers/auth";
+import axiosInstance from "../api/utils/instance";
 
 function logInAPI(data: any) {
   return axios.post("/api/login", data);
@@ -59,8 +58,7 @@ function* logOut() {
 
 function signUpAPI(data: any): any {
   console.log("signUpAPI Data = ", data);
-  // return axios.post("/api/signUp"); // 실패
-  return true; // 성공 실패 테스트
+  return axiosInstance.post("/api/signUp", data);
 }
 
 function* signUp(action: any): any {
