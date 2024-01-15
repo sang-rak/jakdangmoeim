@@ -17,7 +17,10 @@ import {
 import { useRouter } from "next/navigation";
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import Modal from "../../../molecules/Modal";
-import { setPassword } from "../../../../../hooks/useAuth";
+import {
+  AuthsetMarketingAgree,
+  AuthsetPassword,
+} from "../../../../../hooks/useAuth";
 
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
@@ -35,7 +38,8 @@ const PasswordInfoForm = () => {
   const handleModalSubmit = () => {
     // 비지니스 로직
     setOpen(false);
-    dispatch(setPassword(password));
+    dispatch(AuthsetPassword(password));
+    dispatch(AuthsetMarketingAgree(marketingAgree));
     router.push("/auth/signup/personalinfo");
   };
 

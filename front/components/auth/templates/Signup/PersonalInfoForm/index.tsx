@@ -17,12 +17,18 @@ import {
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 
 import { useRouter } from "next/navigation";
+import {
+  AuthsetBirthday,
+  AuthsetGender,
+  AuthsetNickname,
+} from "../../../../../hooks/useAuth";
+import { useDispatch } from "react-redux";
 
 const PersonalInfoForm = () => {
   const [nickname, onChangeNickname] = useInput("");
   const router = useRouter();
   const [nicknameError, setNicknameError] = useState(false);
-
+  const dispatch = useDispatch();
   const [gender, onChangeGender] = useState("");
   const [birthday, onChangeBirthday] = useState("");
 
@@ -35,6 +41,11 @@ const PersonalInfoForm = () => {
     if (gender == "" || birthday == "") {
       return;
     }
+
+    dispatch(AuthsetNickname(nickname));
+    dispatch(AuthsetGender(gender));
+    dispatch(AuthsetBirthday(birthday));
+
     router.push("/auth/signup/complete");
   }, [nickname, gender, birthday]);
 
