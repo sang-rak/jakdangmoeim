@@ -16,7 +16,7 @@ import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import useInput from "../../../../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
-import { setPhone } from "../../../../../hooks/useAuth";
+import { AuthsetPhone } from "../../../../../hooks/useAuth";
 
 const CertificationNumber = () => {
   const { phone, certificationNumberCheck } = useSelector(
@@ -30,7 +30,6 @@ const CertificationNumber = () => {
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(() => {
-    console.log(certificationNumberCheck);
     if (certificationnumber === certificationNumberCheck) {
       setCertificationnumberError(false);
       router.push("/auth/signup/passwordinfo");
@@ -41,7 +40,7 @@ const CertificationNumber = () => {
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
-    dispatch(setPhone(phone));
+    dispatch(AuthsetPhone(phone));
   }, [phone]);
 
   const MINUTES_IN_MS = 3 * 60 * 1000;

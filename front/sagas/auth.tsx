@@ -57,13 +57,15 @@ function* logOut() {
   }
 }
 
-function signUpAPI() {
-  return axios.post("/api/signUp");
+function signUpAPI(data: any): any {
+  console.log("signUpAPI Data = ", data);
+  // return axios.post("/api/signUp"); // 실패
+  return true; // 성공 실패 테스트
 }
 
-function* signUp() {
+function* signUp(action: any): any {
   try {
-    // const result = yield call(signUpAPI);
+    const result = yield call(signUpAPI, action.data);
     yield put({
       type: SIGN_UP_SUCCESS,
     });
@@ -76,8 +78,6 @@ function* signUp() {
 }
 
 function phoneCertificationnumberAPI(data: any): any {
-  console.log(data);
-  // return axios.post("/api/signUp")
   return data.substr(-4);
 }
 
@@ -118,7 +118,7 @@ export default function* userSaga() {
   yield all([
     fork(watchLogIn), // call
     fork(watchLogOut),
-    fork(watchSignUp),
+    fork(watchSignUp), // 회원가입
     fork(watchPhoneCertificationnumber),
   ]);
 }

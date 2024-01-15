@@ -6,6 +6,8 @@ export interface User {
   phone?: string | null;
   password?: string | null;
   certificationNumber?: string | null;
+  gender?: string | null;
+  birthday?: string | null;
 }
 
 export interface Info {
@@ -27,8 +29,6 @@ export interface State {
   me: User | null;
   signUpData: User | null;
   loginData: any;
-  phone: string | null;
-  certificationNumberCheck: string | null;
 }
 
 export const initialState: State = {
@@ -45,8 +45,6 @@ export const initialState: State = {
   me: null,
   signUpData: null,
   loginData: {},
-  phone: null,
-  certificationNumberCheck: null,
 };
 
 export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
@@ -66,8 +64,11 @@ export const AUTH_SET_PHONE_SUCCESS = "AUTH_SET_PHONE_SUCCESS";
 export const AUTH_SET_PHONE_FAILURE = "AUTH_SET_PHONE_FAILURE";
 
 export const AUTH_SET_PASSWORD_REQUEST = "AUTH_SET_PASSWORD_REQUEST";
-export const AUTH_SET_PASSWORD_SUCCESS = "AUTH_SET_PASSWORD_SUCCESS";
-export const AUTH_SET_PASSWORD_FAILURE = "AUTH_SET_PASSWORD_FAILURE";
+
+export const AUTH_SET_MARKETING_REQUEST = "AUTH_SET_MARKETING_REQUEST";
+export const AUTH_SET_NICKNAME_REQUEST = "AUTH_SET_NICKNAME_REQUEST";
+export const AUTH_SET_GENDER_REQUEST = "AUTH_SET_GENDER_REQUEST";
+export const AUTH_SET_BIRTHDAY_REQUEST = "AUTH_SET_BIRTHDAY_REQUEST";
 
 // action creator
 export const loginRequestAction = (data: any) => {
@@ -153,9 +154,6 @@ const reducer = (state = initialState, action: any) =>
         draft.signUpData = {
           ...draft.signUpData,
           certificationNumberCheck: action.certificationNumberCheck,
-        };
-        draft.signUpData = {
-          ...draft.signUpData,
           phone: action.data,
         };
         draft.phoneLoading = false;
@@ -169,6 +167,30 @@ const reducer = (state = initialState, action: any) =>
         draft.signUpData = {
           ...draft.signUpData,
           password: action.data,
+        };
+        break;
+      case AUTH_SET_MARKETING_REQUEST:
+        draft.signUpData = {
+          ...draft.signUpData,
+          marketingAgree: action.data,
+        };
+        break;
+      case AUTH_SET_NICKNAME_REQUEST:
+        draft.signUpData = {
+          ...draft.signUpData,
+          nickname: action.data,
+        };
+        break;
+      case AUTH_SET_GENDER_REQUEST:
+        draft.signUpData = {
+          ...draft.signUpData,
+          gender: action.data,
+        };
+        break;
+      case AUTH_SET_BIRTHDAY_REQUEST:
+        draft.signUpData = {
+          ...draft.signUpData,
+          birthday: action.data,
         };
         break;
 

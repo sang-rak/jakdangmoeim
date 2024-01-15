@@ -14,7 +14,7 @@ import {
 
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { setPhone } from "../../../../../hooks/useAuth";
+import { AuthsetPhone } from "../../../../../hooks/useAuth";
 
 const PhoneNumberVerificationForm = () => {
   const [phone, onChangePhone] = useInput("");
@@ -27,7 +27,7 @@ const PhoneNumberVerificationForm = () => {
     // validation 체크
     if (phone.length === 11) {
       setPhoneError(false);
-      dispatch(setPhone(phone)); // phone 정보 설정
+      dispatch(AuthsetPhone(phone)); // phone 정보 설정
 
       router.push("/auth/signup/certificationnumber");
     } else {
