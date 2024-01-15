@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: "http://localhost:8080",
   headers: {
     "Access-Control-Allow-Origin": "*",
@@ -12,4 +12,4 @@ const instance = axios.create({
   },
 });
 
-export default instance;
+export default axiosInstance;

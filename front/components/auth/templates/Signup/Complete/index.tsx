@@ -9,17 +9,27 @@ import { SignupRequestAction } from "../../../../../hooks/useAuth";
 const Complete = () => {
   const dispatch = useDispatch();
   const [signupError, setSignupError] = useState(false);
+  const [signupRequest, setSignupRequest] = useState(true);
   const { nickname, phone, password, gender, birthday } = useSelector(
     (state: any) => state.auth.signUpData
   );
   const signUpDone = useSelector((state: any) => state.auth.signUpDone);
 
   useEffect(() => {
-    console.log(nickname, phone, password, gender, birthday);
-    // 회원가입
-    dispatch(
-      SignupRequestAction([nickname, phone, password, gender, birthday])
-    );
+    // 1회 요청 제한
+    if (signupRequest) {
+      setSignupRequest(false);
+      // 회원가입 요청
+      dispatch(
+        SignupRequestAction({
+          nickname: nickname,
+          phone: phone,
+          password: password,
+          gender: gender,
+          birthday: birthday,
+        })
+      );
+    }
   }, [nickname, phone, password, gender, birthday]);
 
   useEffect(() => {
