@@ -58,7 +58,7 @@ function* logOut() {
 
 function signUpAPI(data: any): any {
   console.log("signUpAPI Data = ", data);
-  return axiosInstance.post("/api/signUp", data);
+  return axiosInstance.post("/api/v1/auth/signup", data);
 }
 
 function* signUp(action: any): any {

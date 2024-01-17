@@ -22,13 +22,23 @@ const Complete = () => {
       // 회원가입 요청
       dispatch(
         SignupRequestAction({
-          nickname: nickname,
+          username: nickname,
           phone: phone,
           password: password,
-          gender: gender,
-          birthday: birthday,
+          roles: "ROLE_USER",
+          age: 25,
         })
       );
+      // dispatch(
+      //   SignupRequestAction({
+      //     nickname: nickname,
+      //     phone: phone,
+      //     password: password,
+      //     gender: gender,
+      //     birthday: birthday,
+      //     roles: ROLE_USER,
+      //   })
+      // );
     }
   }, [nickname, phone, password, gender, birthday]);
 
