@@ -7,8 +7,8 @@ const axiosInstance = axios.create({
     "content-Type": "application/json",
   },
   params: {
-    api_key: process.env.REACT_APP_JACKDANG_DB_API_KEY,
-    language: "ko-KR",
+    // api_key: process.env.REACT_APP_JACKDANG_DB_API_KEY,
+    // language: "ko-KR",
   },
 });
 

@@ -23,7 +23,7 @@ const Complete = () => {
       dispatch(
         SignupRequestAction({
           username: nickname,
-          phone: phone,
+          // phone: phone,
           password: password,
           roles: "ROLE_USER",
           age: 25,

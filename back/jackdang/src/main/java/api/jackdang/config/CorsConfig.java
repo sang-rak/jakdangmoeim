@@ -12,7 +12,7 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
+        config.setAllowCredentials(false); // 운영시 true로 바꾸고 addAllowedOrigin을 설정한다
         config.addAllowedOrigin("*"); // Access-Control-Allow-Origin  (Response에 자동으로 추가해줌)
         config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");  // Access-Control-Request-Headers
