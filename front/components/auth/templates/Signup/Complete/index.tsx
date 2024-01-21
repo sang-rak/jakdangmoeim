@@ -23,22 +23,14 @@ const Complete = () => {
       dispatch(
         SignupRequestAction({
           username: nickname,
-          // phone: phone,
+          nickname: nickname,
+          phone: phone,
           password: password,
+          gender: gender,
+          birthday: birthday,
           roles: "ROLE_USER",
-          age: 25,
         })
       );
-      // dispatch(
-      //   SignupRequestAction({
-      //     nickname: nickname,
-      //     phone: phone,
-      //     password: password,
-      //     gender: gender,
-      //     birthday: birthday,
-      //     roles: ROLE_USER,
-      //   })
-      // );
     }
   }, [nickname, phone, password, gender, birthday]);
 

@@ -25,14 +25,14 @@ public class AuthService {
         this.userRepository = userRepository;
     }
     /* 회원가입 */
-    public Users signup(String username, int age, String password, String roles) {
+    public Users signup(String username, String nickname, String phone, String password, String gender, String birthday,  String roles) {
         // 중복 체크 로직
         if (userRepository.existsByUsername(username)) {
             throw new RuntimeException("이미 사용 중인 유저 이름입니다.");
         }
 
         // 사용자 생성
-        Users newUser = new Users(username, age, bcryptPasswordEncoder.encode(password), roles);
+        Users newUser = new Users(username, nickname, phone, bcryptPasswordEncoder.encode(password), gender, birthday, roles);
 
         // 저장
         return userRepository.save(newUser);
