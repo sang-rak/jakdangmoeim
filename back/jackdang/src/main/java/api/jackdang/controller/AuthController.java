@@ -34,7 +34,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody UserSignupRequestDTO userSignupRequestDTO) {
         try {
-            authService.signup(userSignupRequestDTO.getUsername(), userSignupRequestDTO.getAge(), userSignupRequestDTO.getPassword(), userSignupRequestDTO.getRoles());
+            authService.signup(userSignupRequestDTO.getUsername(), userSignupRequestDTO.getNickname(), userSignupRequestDTO.getPhone(), userSignupRequestDTO.getPassword(), userSignupRequestDTO.getGender(), userSignupRequestDTO.getBirthday(),  userSignupRequestDTO.getRoles());
             return ResponseEntity.ok("사용자 가입이 완료되었습니다.");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

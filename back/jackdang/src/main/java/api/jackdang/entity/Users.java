@@ -18,32 +18,38 @@ public class Users {
     @Column(name = "users_id")
     private Long id;
     private String username;
-    private int age;
+    private String nickname;
+    private String phone;
     private String password;
+    private String gender;
+    private String birthday;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gathering_id")
     private Gathering gathering;
     private String authority;
     private String roles;
-    public Users(String username, int age, String roles) {
+//    public Users(String username, String nickname, String phone, String gender, String birthday,  String roles) {
+//
+//        this(username, nickname, phone, gender,  birthday,  roles);
+//    }
 
-        this(username, age, "", roles);
-    }
-
-    public Users(String username, int age, String password, String roles) {
+    public Users(String username, String nickname, String phone, String password, String gender, String birthday,  String roles) {
         this.username = username;
-        this.age = age;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.gender = gender;
         this.password = password;
+        this.birthday = birthday;
         this.roles = roles;
     }
 
 
-    public Users(String username, int age, Gathering gathering, String roles) {
-        this(username, age, "", gathering, roles); // password 초기화
+    public Users(String username, String birthday, Gathering gathering, String roles) {
+        this(username, birthday, "", gathering, roles); // password 초기화
     }
-    public Users(String username, int age, String password, Gathering gathering, String roles) { // password 파라미터 추가
+    public Users(String username, String birthday, String password, Gathering gathering, String roles) { // password 파라미터 추가
         this.username = username;
-        this.age = age;
+        this.birthday = birthday;
         this.password = password;
         if (gathering != null) {
             changeGathering(gathering);
