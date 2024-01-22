@@ -28,19 +28,14 @@ public class Users {
     private Gathering gathering;
     private String authority;
     private String roles;
-//    public Users(String username, String nickname, String phone, String gender, String birthday,  String roles) {
-//
-//        this(username, nickname, phone, gender,  birthday,  roles);
-//    }
 
-    public Users(String username, String nickname, String phone, String password, String gender, String birthday,  String roles) {
+    public Users(String username, String nickname, String phone, String password, String gender, String birthday) {
         this.username = username;
         this.nickname = nickname;
         this.phone = phone;
         this.gender = gender;
         this.password = password;
         this.birthday = birthday;
-        this.roles = roles;
     }
 
 

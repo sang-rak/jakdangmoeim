@@ -8,12 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { SignupRequestAction } from "../../../../../hooks/useAuth";
 const Complete = () => {
   const dispatch = useDispatch();
-  const [signupError, setSignupError] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
   const [signupRequest, setSignupRequest] = useState(true);
   const { nickname, phone, password, gender, birthday } = useSelector(
     (state: any) => state.auth.signUpData
   );
-  const signUpDone = useSelector((state: any) => state.auth.signUpDone);
+  const { signUpDone, signUpError } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     // 1회 요청 제한
@@ -28,20 +28,23 @@ const Complete = () => {
           password: password,
           gender: gender,
           birthday: birthday,
-          roles: "ROLE_USER",
         })
       );
     }
   }, [nickname, phone, password, gender, birthday]);
 
   useEffect(() => {
-    // 회원가입 실패시 화면 변경
-    if (!signUpDone) {
-      setSignupError(true);
+    // 회원가입 성공시 화면 변경
+    console.log("signUpDone");
+    console.log(signUpDone);
+    console.log("signUpError");
+    console.log(signUpError);
+    if (signUpDone && signUpError == undefined) {
+      setSignupSuccess(true);
     } else {
-      setSignupError(false);
+      setSignupSuccess(false);
     }
-  }, [signUpDone]);
+  }, [signUpDone, signUpError]);
 
   return (
     <AppLayout>
@@ -49,15 +52,23 @@ const Complete = () => {
         <ArrowLeftOutlined />
       </LinkWrapper>
       <FlexWrapper vertical>
-        {signupError ? (
+        {signupSuccess ? (
           <Flex align="left" vertical>
-            <Title content="가입이" customStyle={{ margin: 0 }} />
-            <Title content="실패했습니다." customStyle={{ margin: 0 }} />
+            <Title content="회원가입이" customStyle={{ margin: 0 }} />
+            <Title content="완료되었습니다!" customStyle={{ margin: 0 }} />
+          </Flex>
+        ) : signUpError ? (
+          <Flex align="left" vertical>
+            <Title content={signUpError} customStyle={{ margin: 0 }} />
+            <Title
+              content="다시 회원가입을 해주세요."
+              customStyle={{ margin: 0 }}
+            />
           </Flex>
         ) : (
           <Flex align="left" vertical>
-            <Title content="가입이" customStyle={{ margin: 0 }} />
-            <Title content="완료되었습니다!" customStyle={{ margin: 0 }} />
+            <Title content="회원가입 중 입니다" customStyle={{ margin: 0 }} />
+            <Title content="잠시만 기다려주세요." customStyle={{ margin: 0 }} />
           </Flex>
         )}
 

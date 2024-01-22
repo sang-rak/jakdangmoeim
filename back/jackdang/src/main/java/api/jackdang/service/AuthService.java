@@ -25,15 +25,22 @@ public class AuthService {
         this.userRepository = userRepository;
     }
     /* 회원가입 */
-    public Users signup(String username, String nickname, String phone, String password, String gender, String birthday,  String roles) {
+    public Users signup(String username, String nickname, String phone, String password, String gender, String birthday) {
         // 중복 체크 로직
         if (userRepository.existsByUsername(username)) {
-            throw new RuntimeException("이미 사용 중인 유저 이름입니다.");
+            throw new RuntimeException("이미 사용 중인 유저 이름 입니다.");
+        }
+
+        if (userRepository.existsByNickname(nickname)) {
+            throw new RuntimeException("이미 사용 중인 유저 닉네임 입니다.");
+        }
+        if (userRepository.existsByPhone(phone)) {
+            throw new RuntimeException("이미 사용 중인 유저 전화번호 입니다.");
         }
 
         // 사용자 생성
-        Users newUser = new Users(username, nickname, phone, bcryptPasswordEncoder.encode(password), gender, birthday, roles);
-
+        Users newUser = new Users(username, nickname, phone, bcryptPasswordEncoder.encode(password), gender, birthday);
+        newUser.setRoles("ROLE_USER");
         // 저장
         return userRepository.save(newUser);
     }
