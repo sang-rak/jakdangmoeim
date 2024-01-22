@@ -3,11 +3,13 @@ package api.jackdang.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 인증 번호 생성
+ * */
 @Data
 @NoArgsConstructor
-public class UserDto {
+public class CertificationNumberRequest {
 
-    private String username;
-    private int age;
+    private String phone;
 
 }

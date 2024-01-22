@@ -20,13 +20,4 @@ public class UserSignupRequestDTO {
     private String birthday;
     private String roles;
 
-    public UserSignupRequestDTO(String username, String nickname, String phone, String password, String gender, String birthday,  String roles) {
-        this.username = username;
-        this.nickname = nickname;
-        this.phone = phone;
-        this.password = password;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.roles = roles;
-    }
 }
