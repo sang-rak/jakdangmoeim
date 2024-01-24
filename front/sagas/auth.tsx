@@ -13,6 +13,9 @@ import {
   AUTH_SET_PHONE_REQUEST,
   AUTH_SET_PHONE_FAILURE,
   AUTH_SET_PHONE_SUCCESS,
+  CERTIFICATION_NUMBER_REQUEST,
+  CERTIFICATION_NUMBER_SUCCESS,
+  CERTIFICATION_NUMBER_FAILURE,
 } from "../reducers/auth";
 import axiosInstance from "../api/utils/instance";
 
@@ -75,21 +78,41 @@ function* signUp(action: any): any {
 }
 
 function phoneCertificationnumberAPI(data: any): any {
-  return data.substr(-4);
+  return axiosInstance.post("/api/v1/auth/certificationNumber", data);
 }
 
 function* phoneCertificationnumber(action: any): any {
   try {
     const result = yield call(phoneCertificationnumberAPI, action.data);
-    const certificationNumberCheck = result;
     yield put({
       type: AUTH_SET_PHONE_SUCCESS,
       data: action.data,
-      certificationNumberCheck: certificationNumberCheck,
     });
   } catch (err: any) {
     yield put({
       type: AUTH_SET_PHONE_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function certificationNumberCheckAPI(data: any): any {
+  console.log("data");
+  console.log(data);
+  return axiosInstance.post("/api/v1/auth/certificationNumberCheck", data);
+}
+
+function* certificationNumberCheck(action: any): any {
+  try {
+    const result = yield call(certificationNumberCheckAPI, action.data);
+    console.log("성공");
+    yield put({
+      type: CERTIFICATION_NUMBER_SUCCESS,
+    });
+  } catch (err: any) {
+    console.log("실패");
+    yield put({
+      type: CERTIFICATION_NUMBER_FAILURE,
       error: err.response.data,
     });
   }
@@ -107,8 +130,14 @@ function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
+// 인증번호 요청
 function* watchPhoneCertificationnumber() {
   yield takeLatest(AUTH_SET_PHONE_REQUEST, phoneCertificationnumber);
+}
+
+// 인증번호 요청
+function* watchCertificationNumberCheck() {
+  yield takeLatest(CERTIFICATION_NUMBER_REQUEST, certificationNumberCheck);
 }
 
 export default function* userSaga() {
@@ -117,5 +146,6 @@ export default function* userSaga() {
     fork(watchLogOut),
     fork(watchSignUp), // 회원가입
     fork(watchPhoneCertificationnumber),
+    fork(watchCertificationNumberCheck), // 인증번호 요청
   ]);
 }

@@ -91,12 +91,13 @@ public class AuthController {
         try {
             String certificationNumber = (String) session.getAttribute("certificationNumber");
             String certificationNumberCheck = certificationCheckRequest.getCertificationNumberCheck();
-
+            System.out.println(certificationNumberCheck);
+            System.out.println(certificationNumber);
             if (certificationNumberCheck.equals(certificationNumber)) {
                 session.removeAttribute("certificationNumber");
                 return ResponseEntity.ok("인증 번호 확인 되었습니다.");
             }
-            return ResponseEntity.ok("인증 번호가 틀립니다.");
+            return ResponseEntity.badRequest().body("인증 번호가 틀립니다.");
         }
         catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
