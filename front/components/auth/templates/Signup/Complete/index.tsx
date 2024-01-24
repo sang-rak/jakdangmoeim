@@ -35,10 +35,6 @@ const Complete = () => {
 
   useEffect(() => {
     // 회원가입 성공시 화면 변경
-    console.log("signUpDone");
-    console.log(signUpDone);
-    console.log("signUpError");
-    console.log(signUpError);
     if (signUpDone && signUpError == undefined) {
       setSignupSuccess(true);
     } else {

@@ -6,11 +6,12 @@ import {
   AUTH_SET_GENDER_REQUEST,
   AUTH_SET_BIRTHDAY_REQUEST,
   SIGN_UP_REQUEST,
+  CERTIFICATION_NUMBER_REQUEST,
 } from "../reducers/auth";
 
-export const AuthsetPhone = (phone: string) => ({
+export const AuthsetPhone = (data: {}) => ({
   type: AUTH_SET_PHONE_REQUEST,
-  data: phone,
+  data,
 });
 
 export const AuthsetPassword = (password: string) => ({
@@ -41,6 +42,13 @@ export const AuthsetBirthday = (birthday: string) => ({
 export const SignupRequestAction = (data: {}) => {
   return {
     type: SIGN_UP_REQUEST,
+    data,
+  };
+};
+
+export const CertificationNumberRequestAction = (data: {}) => {
+  return {
+    type: CERTIFICATION_NUMBER_REQUEST,
     data,
   };
 };

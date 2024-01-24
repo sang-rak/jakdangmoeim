@@ -16,31 +16,49 @@ import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import useInput from "../../../../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
-import { AuthsetPhone } from "../../../../../hooks/useAuth";
+import {
+  AuthsetPhone,
+  CertificationNumberRequestAction,
+} from "../../../../../hooks/useAuth";
 
 const CertificationNumber = () => {
-  const { phone, certificationNumberCheck } = useSelector(
-    (state: any) => state.auth.signUpData
+  const { phone } = useSelector((state: any) => state.auth.signUpData);
+  const { certificationNumberDone, certificationNumberError } = useSelector(
+    (state: any) => state.auth
   );
-
   const [certificationnumber, onCertificationnumber] = useInput("");
   const [certificationnumberError, setCertificationnumberError] =
     useState(false);
+  const [checkSubmit, setCheckSubmit] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(() => {
-    if (certificationnumber === certificationNumberCheck) {
-      setCertificationnumberError(false);
-      router.push("/auth/signup/passwordinfo");
-    } else {
-      return setCertificationnumberError(true);
-    }
+    setCheckSubmit(true);
+    dispatch(
+      CertificationNumberRequestAction({
+        certificationNumberCheck: certificationnumber,
+      })
+    );
   }, [certificationnumber]);
+
+  // 인증 성공 시 페이지 변경
+  useEffect(() => {
+    // 제출시
+    if (checkSubmit) {
+      if (certificationNumberDone && !certificationNumberError) {
+        setCertificationnumberError(false);
+        router.push("/auth/signup/passwordinfo");
+      } else {
+        setCheckSubmit(false);
+        return setCertificationnumberError(true);
+      }
+    }
+  }, [certificationNumberDone, certificationNumberError, checkSubmit]);
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
-    dispatch(AuthsetPhone(phone));
+    dispatch(AuthsetPhone({ phone: phone }));
   }, [phone]);
 
   const MINUTES_IN_MS = 3 * 60 * 1000;

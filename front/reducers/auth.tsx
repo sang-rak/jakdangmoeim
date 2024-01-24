@@ -17,15 +17,18 @@ export interface Info {
 
 export interface State {
   signUpInformations: Info[];
-  logInLoading: boolean; // 로그인 시도중
+  logInLoading: boolean;
   logInDone: boolean;
   logInError: any;
-  logOutLoading: boolean; // 로그아웃 시도중
+  logOutLoading: boolean;
   logOutDone: boolean;
   logOutError: any;
-  signUpLoading: boolean; // 회원가입 시도중
+  signUpLoading: boolean;
   signUpDone: boolean;
   signUpError: any;
+  certificationNumberLoading: boolean;
+  certificationNumberDone: boolean;
+  certificationNumberError: any;
   me: User | null;
   signUpData: User | null;
   loginData: any;
@@ -42,6 +45,10 @@ export const initialState: State = {
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
+  certificationNumberLoading: false, // 인증번호 인증 중
+  certificationNumberDone: false,
+  certificationNumberError: null,
+
   me: null,
   signUpData: null,
   loginData: {},
@@ -55,9 +62,17 @@ export const LOG_OUT_REQUEST = "LOG_OUT_REQUEST";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
 
+// 회원가입
 export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
+
+// 인증번호
+export const CERTIFICATION_NUMBER_REQUEST = "CERTIFICATION_NUMBER_REQUEST";
+export const CERTIFICATION_NUMBER_SUCCESS = "CERTIFICATION_NUMBER_SUCCESS";
+export const CERTIFICATION_NUMBER_FAILURE = "CERTIFICATION_NUMBER_FAILURE";
+
+CERTIFICATION_NUMBER_REQUEST;
 
 export const AUTH_SET_PHONE_REQUEST = "AUTH_SET_PHONE_REQUEST";
 export const AUTH_SET_PHONE_SUCCESS = "AUTH_SET_PHONE_SUCCESS";
@@ -145,6 +160,19 @@ const reducer = (state = initialState, action: any) =>
         draft.signUpLoading = false;
         draft.signUpError = action.error;
         break;
+      case CERTIFICATION_NUMBER_REQUEST:
+        draft.certificationNumberLoading = true;
+        draft.certificationNumberError = null;
+        draft.certificationNumberDone = false;
+        break;
+      case CERTIFICATION_NUMBER_SUCCESS:
+        draft.certificationNumberLoading = false;
+        draft.certificationNumberDone = true;
+        break;
+      case CERTIFICATION_NUMBER_FAILURE:
+        draft.certificationNumberLoading = false;
+        draft.certificationNumberError = action.error;
+        break;
       case AUTH_SET_PHONE_REQUEST:
         draft.phoneLoading = true;
         draft.phoneError = null;
@@ -153,8 +181,7 @@ const reducer = (state = initialState, action: any) =>
       case AUTH_SET_PHONE_SUCCESS:
         draft.signUpData = {
           ...draft.signUpData,
-          certificationNumberCheck: action.certificationNumberCheck,
-          phone: action.data,
+          phone: action.data["phone"],
         };
         draft.phoneLoading = false;
         draft.phoneDone = true;
