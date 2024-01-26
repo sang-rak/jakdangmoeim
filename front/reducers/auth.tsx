@@ -26,6 +26,9 @@ export interface State {
   signUpLoading: boolean;
   signUpDone: boolean;
   signUpError: any;
+  phoneLoading: boolean;
+  phoneDone: boolean;
+  phoneError: any;
   certificationNumberLoading: boolean;
   certificationNumberDone: boolean;
   certificationNumberError: any;
@@ -45,12 +48,15 @@ export const initialState: State = {
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
+  phoneLoading: false, // 인증번호 생성
+  phoneDone: false,
+  phoneError: null,
   certificationNumberLoading: false, // 인증번호 인증 중
   certificationNumberDone: false,
   certificationNumberError: null,
 
   me: null,
-  signUpData: null,
+  signUpData: {},
   loginData: {},
 };
 
@@ -71,8 +77,6 @@ export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 export const CERTIFICATION_NUMBER_REQUEST = "CERTIFICATION_NUMBER_REQUEST";
 export const CERTIFICATION_NUMBER_SUCCESS = "CERTIFICATION_NUMBER_SUCCESS";
 export const CERTIFICATION_NUMBER_FAILURE = "CERTIFICATION_NUMBER_FAILURE";
-
-CERTIFICATION_NUMBER_REQUEST;
 
 export const AUTH_SET_PHONE_REQUEST = "AUTH_SET_PHONE_REQUEST";
 export const AUTH_SET_PHONE_SUCCESS = "AUTH_SET_PHONE_SUCCESS";
@@ -179,12 +183,12 @@ const reducer = (state = initialState, action: any) =>
         draft.phoneDone = false;
         break;
       case AUTH_SET_PHONE_SUCCESS:
-        draft.signUpData = {
-          ...draft.signUpData,
-          phone: action.data["phone"],
-        };
         draft.phoneLoading = false;
         draft.phoneDone = true;
+        draft.signUpData = {
+          ...draft.signUpData,
+          phone: action.data.phone,
+        };
         break;
       case AUTH_SET_PHONE_FAILURE:
         draft.phoneLoading = false;

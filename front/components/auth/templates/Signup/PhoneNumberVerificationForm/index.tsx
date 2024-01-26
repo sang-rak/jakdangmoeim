@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Flex, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import useInput from "../../../../../hooks/useInput";
@@ -13,27 +13,42 @@ import {
 } from "./styles";
 
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthsetPhone } from "../../../../../hooks/useAuth";
 
 const PhoneNumberVerificationForm = () => {
   const [phone, onChangePhone] = useInput("");
-  const [phoneError, setPhoneError] = useState(false);
+  const [phoneRequestError, setPhoneRequestError] = useState(false);
+  const [checkSubmit, setCheckSubmit] = useState(false);
   const router = useRouter();
 
   const dispatch = useDispatch();
 
+  const { phoneDone } = useSelector((state: any) => state.auth);
+
   const onSubmit = useCallback(() => {
+    setCheckSubmit(true);
     // validation 체크
     if (phone.length === 11) {
-      setPhoneError(false);
+      setPhoneRequestError(false);
       dispatch(AuthsetPhone({ phone: phone })); // phone 정보 설정
-
-      router.push("/auth/signup/certificationnumber");
     } else {
-      return setPhoneError(true);
+      return setPhoneRequestError(true);
     }
   }, [phone]);
+
+  // 인증 번호 요청 성공 시 페이지 변경
+  useEffect(() => {
+    // 제출시
+    if (checkSubmit) {
+      if (phoneDone) {
+        router.push("/auth/signup/certificationnumber");
+      } else {
+        setCheckSubmit(false);
+        return;
+      }
+    }
+  }, [phoneDone, checkSubmit]);
 
   return (
     <AppLayout>
@@ -58,7 +73,7 @@ const PhoneNumberVerificationForm = () => {
             />
           </Form.Item>
           <Form.Item>
-            {phoneError && (
+            {phoneRequestError && (
               <ErrorMessage>
                 <ExclamationCircleFilled />
                 &ensp;휴대전화번호를 다시 확인 해주세요.

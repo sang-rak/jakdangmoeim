@@ -22,7 +22,7 @@ import {
 } from "../../../../../hooks/useAuth";
 
 const CertificationNumber = () => {
-  const { phone } = useSelector((state: any) => state.auth.signUpData);
+  const { signUpData } = useSelector((state: any) => state.auth);
   const { certificationNumberDone, certificationNumberError } = useSelector(
     (state: any) => state.auth
   );
@@ -58,8 +58,8 @@ const CertificationNumber = () => {
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
-    dispatch(AuthsetPhone({ phone: phone }));
-  }, [phone]);
+    dispatch(AuthsetPhone({ phone: signUpData.phone }));
+  }, [signUpData.phone]);
 
   const MINUTES_IN_MS = 3 * 60 * 1000;
   const INTERVAL = 1000;
