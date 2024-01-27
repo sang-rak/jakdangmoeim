@@ -44,6 +44,8 @@ const CertificationNumber = () => {
 
   // 인증 성공 시 페이지 변경
   useEffect(() => {
+    console.log("signUpData");
+    console.log(signUpData);
     // 제출시
     if (checkSubmit) {
       if (certificationNumberDone && !certificationNumberError) {

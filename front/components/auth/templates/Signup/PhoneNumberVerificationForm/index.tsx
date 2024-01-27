@@ -24,10 +24,9 @@ const PhoneNumberVerificationForm = () => {
 
   const dispatch = useDispatch();
 
-  const { phoneDone } = useSelector((state: any) => state.auth);
+  const { phoneDone, signUpData } = useSelector((state: any) => state.auth);
 
   const onSubmit = useCallback(() => {
-    setCheckSubmit(true);
     // validation 체크
     if (phone.length === 11) {
       setPhoneRequestError(false);
@@ -35,18 +34,17 @@ const PhoneNumberVerificationForm = () => {
     } else {
       return setPhoneRequestError(true);
     }
-  }, [phone]);
+  }, [checkSubmit, phone]);
 
   // 인증 번호 요청 성공 시 페이지 변경
   useEffect(() => {
+    console.log("signUpData");
+    console.log(signUpData);
+    console.log("phoneDone");
+    console.log(phoneDone);
     // 제출시
-    if (checkSubmit) {
-      if (phoneDone) {
-        router.push("/auth/signup/certificationnumber");
-      } else {
-        setCheckSubmit(false);
-        return;
-      }
+    if (phoneDone) {
+      router.push("/auth/signup/certificationnumber");
     }
   }, [phoneDone, checkSubmit]);
 

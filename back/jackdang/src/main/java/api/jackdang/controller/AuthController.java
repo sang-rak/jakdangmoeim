@@ -87,11 +87,13 @@ public class AuthController {
     // 인증 번호 확인
     @PostMapping("certificationNumberCheck")
     @ResponseBody
-    public ResponseEntity<String> certificationNumberCheck(@RequestBody CertificationCheckRequest certificationCheckRequest) {
+    public ResponseEntity<String> certificationNumberCheck(@RequestBody CertificationCheckRequest certificationCheckRequest, HttpSession session) {
         try {
-            String certificationNumber = (String) session.getAttribute("certificationNumber");
             String certificationNumberCheck = certificationCheckRequest.getCertificationNumberCheck();
+            String certificationNumber = (String) session.getAttribute("certificationNumber");
+            System.out.println("certificationNumberCheck");
             System.out.println(certificationNumberCheck);
+            System.out.println("certificationNumber");
             System.out.println(certificationNumber);
             if (certificationNumberCheck.equals(certificationNumber)) {
                 session.removeAttribute("certificationNumber");
