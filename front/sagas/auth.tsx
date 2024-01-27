@@ -78,17 +78,14 @@ function* signUp(action: any): any {
 }
 
 function phoneCertificationnumberAPI(data: any): any {
-  console.log("data");
-  console.log(data);
   return axiosInstance.post("/api/v1/auth/certificationNumber", data);
 }
 
 function* phoneCertificationnumber(action: any): any {
   try {
     const result = yield call(phoneCertificationnumberAPI, action.data);
-    console.log("result =" + result);
-    console.log("action.data");
-    console.log(action);
+    console.log("result");
+    console.log(result);
     yield put({
       type: AUTH_SET_PHONE_SUCCESS,
       data: action.data,
