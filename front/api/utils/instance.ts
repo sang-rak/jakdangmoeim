@@ -2,6 +2,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8080",
+  withCredentials: true, // 쿠키 허용
   headers: {
     "Access-Control-Allow-Origin": "*",
     "content-Type": "application/json",

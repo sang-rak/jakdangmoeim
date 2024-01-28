@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.HttpServletRequest;
 
 /* 인증 관련 */
 @RestController
@@ -58,25 +58,28 @@ public class AuthController {
         return ResponseEntity.ok(principalUsername);
     }
 
-    // 인증 번호 생성
+    // 인증번호 생성
     @PostMapping("certificationNumber")
     @ResponseBody
-    public ResponseEntity<String> CertificationNumber(@RequestBody CertificationNumberRequest certificationNumberRequest) {
+    public ResponseEntity<String> CertificationNumber(@RequestBody CertificationNumberRequest certificationNumberRequest, HttpServletRequest request) {
         try {
             String phone = certificationNumberRequest.getPhone();
             // 이미 가입된 전화 번호가 있으면
             authService.existsByPhone(phone);
 
             String certificationNumber = authService.sendRandomMessage(phone);
-            session.setAttribute("certificationNumber", certificationNumber);
 
+            HttpSession session = request.getSession(true);
+            session.setAttribute("certificationNumber", certificationNumber);
+            
             // 세션의 만료 시간을 180초(3분)으로 설정
             session.setMaxInactiveInterval(180);
-
+            
+            // 임시 세션 확인
             String certificationNumberTEST = (String) session.getAttribute("certificationNumber"); // TEST
-            System.out.println(certificationNumberTEST + " : "); // TEST
+            System.out.println(certificationNumberTEST + ": 인증번호"); // TEST
 
-            return ResponseEntity.ok("인증번호 문자발송이 완료되었습니다.");
+            return ResponseEntity.ok("인증번호를 요청하였습니다.");
         }
         catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -87,19 +90,23 @@ public class AuthController {
     // 인증 번호 확인
     @PostMapping("certificationNumberCheck")
     @ResponseBody
-    public ResponseEntity<String> certificationNumberCheck(@RequestBody CertificationCheckRequest certificationCheckRequest, HttpSession session) {
+    public ResponseEntity<String> certificationNumberCheck(@RequestBody CertificationCheckRequest certificationCheckRequest, HttpServletRequest request) {
         try {
-            String certificationNumberCheck = certificationCheckRequest.getCertificationNumberCheck();
+            // 세션에서 저장된 인증번호 가져오기
+            HttpSession session = request.getSession();
             String certificationNumber = (String) session.getAttribute("certificationNumber");
-            System.out.println("certificationNumberCheck");
-            System.out.println(certificationNumberCheck);
-            System.out.println("certificationNumber");
-            System.out.println(certificationNumber);
-            if (certificationNumberCheck.equals(certificationNumber)) {
-                session.removeAttribute("certificationNumber");
-                return ResponseEntity.ok("인증 번호 확인 되었습니다.");
+
+            // 세션에 저장된 인증번호가 없으면 인증 실패
+            if (certificationNumber == null) {
+                return ResponseEntity.badRequest().body("인증번호를 다시 요청 해주세요.");
             }
-            return ResponseEntity.badRequest().body("인증 번호가 틀립니다.");
+            // 요청 인증번호
+            String certificationNumberCheck = certificationCheckRequest.getCertificationNumberCheck();
+            
+            if (certificationNumberCheck.equals(certificationNumber)) {
+                return ResponseEntity.ok("인증번호 확인 되었습니다.");
+            }
+            return ResponseEntity.badRequest().body("인증번호가 틀립니다.");
         }
         catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

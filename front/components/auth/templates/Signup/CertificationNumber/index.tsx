@@ -44,11 +44,10 @@ const CertificationNumber = () => {
 
   // 인증 성공 시 페이지 변경
   useEffect(() => {
-    console.log("signUpData");
-    console.log(signUpData);
+
     // 제출시
     if (checkSubmit) {
-      if (certificationNumberDone && !certificationNumberError) {
+      if (certificationNumberDone) {
         setCertificationnumberError(false);
         router.push("/auth/signup/passwordinfo");
       } else {
@@ -61,7 +60,7 @@ const CertificationNumber = () => {
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
     dispatch(AuthsetPhone({ phone: signUpData.phone }));
-  }, [signUpData.phone]);
+  }, [signUpData]);
 
   const MINUTES_IN_MS = 3 * 60 * 1000;
   const INTERVAL = 1000;

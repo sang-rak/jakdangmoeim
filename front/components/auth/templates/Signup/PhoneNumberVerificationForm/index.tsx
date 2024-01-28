@@ -38,10 +38,6 @@ const PhoneNumberVerificationForm = () => {
 
   // 인증 번호 요청 성공 시 페이지 변경
   useEffect(() => {
-    console.log("signUpData");
-    console.log(signUpData);
-    console.log("phoneDone");
-    console.log(phoneDone);
     // 제출시
     if (phoneDone) {
       router.push("/auth/signup/certificationnumber");
