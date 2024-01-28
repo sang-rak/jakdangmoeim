@@ -10,15 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserSignupRequestDTO {
+
+
     private String username;
-    private int age;
+    private String nickname;
+    private String phone;
     private String password;
+    private String gender;
+    private String birthday;
     private String roles;
 
-    public UserSignupRequestDTO(String username, int age, String password, String roles) {
-        this.username = username;
-        this.age = age;
-        this.password = password;
-        this.roles = roles;
-    }
 }

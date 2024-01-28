@@ -22,15 +22,21 @@ public class QUsers extends EntityPathBase<Users> {
 
     public static final QUsers users = new QUsers("users");
 
-    public final NumberPath<Integer> age = createNumber("age", Integer.class);
-
     public final StringPath authority = createString("authority");
+
+    public final StringPath birthday = createString("birthday");
 
     public final QGathering gathering;
 
+    public final StringPath gender = createString("gender");
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath nickname = createString("nickname");
+
     public final StringPath password = createString("password");
+
+    public final StringPath phone = createString("phone");
 
     public final StringPath roles = createString("roles");
 

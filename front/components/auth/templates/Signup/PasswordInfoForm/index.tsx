@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from "react";
-import { Form, Input, Checkbox, Button, Flex } from "antd";
+import { Form, Input, Flex } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -7,29 +7,39 @@ import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../../../hooks/useInput";
 import AppLayout from "../../../../common/organisms/AppLatout";
 import Title from "../../../../common/atoms/Title";
-import { ErrorMessage, FlexWrapper, FormWrapper, LinkWrapper } from "./styles";
-import { ButtonWrapper } from "./styles";
+import {
+  ErrorMessage,
+  FlexWrapper,
+  FormWrapper,
+  LinkWrapper,
+  ButtonWrapper,
+} from "./styles";
 import { useRouter } from "next/navigation";
-import { ExclamationCircleFilled } from "@ant-design/icons";
+import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import Modal from "../../../molecules/Modal";
+import {
+  AuthsetMarketingAgree,
+  AuthsetPassword,
+} from "../../../../../hooks/useAuth";
+
 const PasswordInfoForm = () => {
   const dispatch = useDispatch();
+  const phone = useSelector((state: any) => state.auth.signUpData.phone);
   const router = useRouter();
-
-  const { signUpLoading } = useSelector((state: any) => state.user);
   const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
   const [marketingAgree, setMarketingAgree] = useState(false); // 마케팅동의 여부
-  const [phone, onChangePhone] = useInput("");
-  const [nickname, onChangeNickname] = useInput("");
+
   const [password, onChangePassword] = useInput("");
+  const [passwordCheck, onChangePasswordCheck] = useInput("");
 
-  const [passwordCheck, setPasswordCheck] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-
+  const [passwordCountError, setPasswordCountError] = useState(false);
   // 필수 약관 동의시 필수정보화면 전환
   const handleModalSubmit = () => {
     // 비지니스 로직
     setOpen(false);
+    dispatch(AuthsetPassword(password));
+    dispatch(AuthsetMarketingAgree(marketingAgree));
     router.push("/auth/signup/personalinfo");
   };
 
@@ -42,45 +52,21 @@ const PasswordInfoForm = () => {
     setOpen(true);
   };
 
-  const onChangePasswordCheck = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordCheck(e.target.value);
-      setPasswordError(e.target.value !== password);
-    },
-    [password]
-  );
-  // 개인정보 동의 체크
-  const [term, setTerm] = useState(false);
-  const [termError, setTermError] = useState(false);
-
-  const onChangeTerm = useCallback((e: CheckboxChangeEvent) => {
-    setTerm(e.target.checked);
-    setTermError(false);
-  }, []);
   const onSubmit = useCallback(() => {
-    if (password !== passwordCheck && password.length < 11) {
-      console.log("1번입니다.");
+    if (password !== passwordCheck) {
       return setPasswordError(true);
     }
-
-    console.log("3번입니다.");
-    handleModalMake();
-    console.log("4번입니다.");
-    // dispatch({
-    //   type: SIGN_UP_REQUEST,
-    //   data: { phone, password, nickname },
-    // });
-    //개인정보 동의 여부 확인
-    if (!term) {
-      console.log("2번입니다.");
-      return setTermError(true);
+    if (password.length < 11) {
+      return setPasswordCountError(true);
     }
-
-    router.push("/auth/signup/personalinfo");
-  }, [phone, password, passwordCheck, term, isOpen]);
+    handleModalMake();
+  }, [phone, password, passwordCheck, isOpen]);
 
   return (
     <AppLayout>
+      <LinkWrapper href="/auth/signup/certificationnumber">
+        <ArrowLeftOutlined />
+      </LinkWrapper>
       <FlexWrapper gap={100} justify="center" vertical>
         <Flex align="left" vertical>
           <Title content="작당모임에" customStyle={{ margin: 0 }} />
@@ -96,7 +82,6 @@ const PasswordInfoForm = () => {
               type="phone"
               value={phone}
               required
-              onChange={onChangePhone}
               placeholder="전화번호"
             />
           </Form.Item>
@@ -126,12 +111,7 @@ const PasswordInfoForm = () => {
                 <ExclamationCircleFilled />
                 &ensp;비밀번호가 일치하지 않습니다.
               </ErrorMessage>
-            ) : password.length > 11 ? (
-              <div>
-                <ExclamationCircleFilled />
-                &ensp;비밀번호 확인이 완료되었습니다.
-              </div>
-            ) : password.length != 0 ? (
+            ) : passwordCountError ? (
               <ErrorMessage>
                 <ExclamationCircleFilled />
                 &ensp;비밀번호는 11자 이상 입력하여야 합니다.
