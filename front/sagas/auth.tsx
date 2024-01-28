@@ -84,8 +84,7 @@ function phoneCertificationnumberAPI(data: any): any {
 function* phoneCertificationnumber(action: any): any {
   try {
     const result = yield call(phoneCertificationnumberAPI, action.data);
-    console.log("result");
-    console.log(result);
+    sessionStorage.setItem("result", "result");
     yield put({
       type: AUTH_SET_PHONE_SUCCESS,
       data: action.data,
@@ -99,20 +98,16 @@ function* phoneCertificationnumber(action: any): any {
 }
 
 function certificationNumberCheckAPI(data: any): any {
-  console.log("data");
-  console.log(data);
   return axiosInstance.post("/api/v1/auth/certificationNumberCheck", data);
 }
 
 function* certificationNumberCheck(action: any): any {
   try {
     const result = yield call(certificationNumberCheckAPI, action.data);
-    console.log("성공");
     yield put({
       type: CERTIFICATION_NUMBER_SUCCESS,
     });
   } catch (err: any) {
-    console.log("실패");
     yield put({
       type: CERTIFICATION_NUMBER_FAILURE,
       error: err.response.data,
@@ -137,7 +132,7 @@ function* watchPhoneCertificationnumber() {
   yield takeLatest(AUTH_SET_PHONE_REQUEST, phoneCertificationnumber);
 }
 
-// 인증번호 요청
+// 인증번호 확인 요청
 function* watchCertificationNumberCheck() {
   yield takeLatest(CERTIFICATION_NUMBER_REQUEST, certificationNumberCheck);
 }
@@ -147,7 +142,7 @@ export default function* userSaga() {
     fork(watchLogIn), // call
     fork(watchLogOut),
     fork(watchSignUp), // 회원가입
-    fork(watchPhoneCertificationnumber),
-    fork(watchCertificationNumberCheck), // 인증번호 요청
+    fork(watchPhoneCertificationnumber), // 인증번호 요청
+    fork(watchCertificationNumberCheck), // 인증번호 확인 요청
   ]);
 }
