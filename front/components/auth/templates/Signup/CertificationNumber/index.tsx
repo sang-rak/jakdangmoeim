@@ -29,12 +29,10 @@ const CertificationNumber = () => {
   const [certificationnumber, onCertificationnumber] = useInput("");
   const [certificationnumberError, setCertificationnumberError] =
     useState(false);
-  const [checkSubmit, setCheckSubmit] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(() => {
-    setCheckSubmit(true);
     dispatch(
       CertificationNumberRequestAction({
         certificationNumberCheck: certificationnumber,
@@ -44,18 +42,14 @@ const CertificationNumber = () => {
 
   // 인증 성공 시 페이지 변경
   useEffect(() => {
-
     // 제출시
-    if (checkSubmit) {
-      if (certificationNumberDone) {
-        setCertificationnumberError(false);
-        router.push("/auth/signup/passwordinfo");
-      } else {
-        setCheckSubmit(false);
-        return setCertificationnumberError(true);
-      }
+    if (certificationNumberDone) {
+      setCertificationnumberError(false);
+      router.push("/auth/signup/passwordinfo");
+    } else if (certificationNumberError) {
+      return setCertificationnumberError(true);
     }
-  }, [certificationNumberDone, certificationNumberError, checkSubmit]);
+  }, [certificationNumberDone]);
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
