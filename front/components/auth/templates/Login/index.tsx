@@ -38,10 +38,6 @@ const Login = () => {
 
   // 로그인 성공 시 페이지 변경
   useEffect(() => {
-    console.log("logInDone");
-    console.log(logInDone);
-    console.log("logInError");
-    console.log(logInError);
     // 제출시
     if (logInDone && logInError == null) {
       router.push("/home");
@@ -106,7 +102,7 @@ const Login = () => {
               </SpanWrapper>
               <LinkWrapper
                 className="login-form-forgot"
-                href="/auth/signup/phonenumberverification"
+                href="/auth/login/findpassword"
               >
                 비밀번호 찾기
               </LinkWrapper>
