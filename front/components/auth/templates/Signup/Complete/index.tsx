@@ -55,7 +55,6 @@ const Complete = () => {
           </Flex>
         ) : signUpError ? (
           <Flex align="left" vertical>
-            <Title content={signUpError} customStyle={{ margin: 0 }} />
             <Title
               content="다시 회원가입을 해주세요."
               customStyle={{ margin: 0 }}
