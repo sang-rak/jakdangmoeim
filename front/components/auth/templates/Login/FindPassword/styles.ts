@@ -16,3 +16,7 @@ export const FlexWrapper = styled(Flex)`
 export const FormWrapper = styled(Form)`
   padding: 10px;
 `;
+
+export const ErrorMessage = styled.div`
+  color: red;
+`;
