@@ -1,18 +1,39 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import AppLayout from "../../../../common/organisms/AppLatout";
-import { LinkWrapper, FlexWrapper, FormWrapper } from "./styles";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { LinkWrapper, FlexWrapper, FormWrapper, ErrorMessage } from "./styles";
+import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { Flex, Form, Input } from "antd";
 import Title from "../../../../common/atoms/Title";
 import { ButtonWrapper } from "../styles";
 import useInput from "../../../../../hooks/useInput";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthsetPhone } from "../../../../../hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 const FindPassword = () => {
   const [phone, onChangePhone] = useInput("");
-
+  const [phoneRequestError, setPhoneRequestError] = useState(false);
+  const { phoneDone, phoneError } = useSelector((state: any) => state.auth);
+  const [checkSubmit, setCheckSubmit] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
   const onSubmit = useCallback(() => {
-    console.log("test");
-  }, [phone]);
+    // validation 체크
+    if (phone.length === 11) {
+      setPhoneRequestError(false);
+      dispatch(AuthsetPhone({ phone: phone })); // phone 정보 설정
+    } else {
+      return setPhoneRequestError(true);
+    }
+  }, [checkSubmit, phone]);
+
+  // 인증 번호 요청 성공 시 페이지 변경
+  useEffect(() => {
+    // 제출시
+    if (phoneDone && phoneError == phoneError) {
+      router.push("/auth/login/certificationnumber");
+    }
+  }, [phoneDone, checkSubmit]);
 
   return (
     <AppLayout>
@@ -38,7 +59,14 @@ const FindPassword = () => {
               placeholder="전화번호"
             />
           </Form.Item>
-
+          <Form.Item>
+            {phoneRequestError && (
+              <ErrorMessage>
+                <ExclamationCircleFilled />
+                &ensp;휴대전화번호를 다시 확인 해주세요.
+              </ErrorMessage>
+            )}
+          </Form.Item>
           <ButtonWrapper type="primary" htmlType="submit" block>
             인증번호 받기
           </ButtonWrapper>
