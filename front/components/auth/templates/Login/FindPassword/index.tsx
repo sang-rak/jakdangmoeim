@@ -16,9 +16,7 @@ const FindPassword = () => {
   const { phoneDone, phoneError } = useSelector((state: any) => state.auth);
   const [checkSubmit, setCheckSubmit] = useState(false);
   const router = useRouter();
-
   const dispatch = useDispatch();
-
   const onSubmit = useCallback(() => {
     // validation 체크
     if (phone.length === 11) {
