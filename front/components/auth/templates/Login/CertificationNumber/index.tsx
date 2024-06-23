@@ -45,11 +45,16 @@ const CertificationNumber = () => {
     // 제출시
     if (certificationNumberDone) {
       setCertificationnumberError(false);
-      router.push("/auth/login/complete");
-    } else if (certificationNumberError) {
-      return setCertificationnumberError(true);
+      router.push("/auth/login/passwordactionselection");
     }
-  }, [certificationNumberDone]);
+  }, [certificationNumberDone, router]);
+
+  // 인증 실패 시 에러 메시지 표시
+  useEffect(() => {
+    if (certificationNumberError) {
+      setCertificationnumberError(true);
+    }
+  }, [certificationNumberError]);
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
