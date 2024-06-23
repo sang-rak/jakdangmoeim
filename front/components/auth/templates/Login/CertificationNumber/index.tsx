@@ -45,6 +45,7 @@ const CertificationNumber = () => {
     // 제출시
     if (certificationNumberDone) {
       setCertificationnumberError(false);
+
       router.push("/auth/login/passwordactionselection");
     }
   }, [certificationNumberDone, router]);
@@ -55,6 +56,7 @@ const CertificationNumber = () => {
       setCertificationnumberError(true);
     }
   }, [certificationNumberError]);
+
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
