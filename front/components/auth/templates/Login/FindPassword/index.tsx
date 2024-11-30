@@ -21,7 +21,7 @@ const FindPassword = () => {
     // validation 체크
     if (phone.length === 11) {
       setPhoneRequestError(false);
-      dispatch(AuthsetPhone({ phone: phone })); // phone 정보 설정
+      dispatch(AuthsetPhone({ phone: phone, type: "active" })); // phone 정보 설정
     } else {
       return setPhoneRequestError(true);
     }
