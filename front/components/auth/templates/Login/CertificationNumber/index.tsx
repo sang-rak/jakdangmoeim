@@ -57,6 +57,7 @@ const CertificationNumber = () => {
     }
   }, [certificationNumberError]);
 
+
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
     dispatch(AuthsetPhone({ phone: signUpData.phone, type: "active" }));

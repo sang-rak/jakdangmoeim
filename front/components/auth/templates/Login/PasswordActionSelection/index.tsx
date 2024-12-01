@@ -18,7 +18,6 @@ const PasswordActionSelection = () => {
             customStyle={{ fontSize: 30, margin: 0 }}
           />
         </Flex>
-
         <ButtonWrapper
           type="primary"
           href="/auth/login/passwordreset"
