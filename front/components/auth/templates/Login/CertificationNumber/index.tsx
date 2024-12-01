@@ -45,15 +45,21 @@ const CertificationNumber = () => {
     // 제출시
     if (certificationNumberDone) {
       setCertificationnumberError(false);
-      router.push("/auth/signup/passwordinfo");
-    } else if (certificationNumberError) {
-      return setCertificationnumberError(true);
+
+      router.push("/auth/login/passwordactionselection");
     }
-  }, [certificationNumberDone]);
+  }, [certificationNumberDone, router]);
+
+  // 인증 실패 시 에러 메시지 표시
+  useEffect(() => {
+    if (certificationNumberError) {
+      setCertificationnumberError(true);
+    }
+  }, [certificationNumberError]);
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
-    dispatch(AuthsetPhone({ phone: signUpData.phone, type: "inactive" }));
+    dispatch(AuthsetPhone({ phone: signUpData.phone, type: "active" }));
   }, [signUpData]);
 
   const MINUTES_IN_MS = 3 * 60 * 1000;
@@ -82,13 +88,13 @@ const CertificationNumber = () => {
 
   return (
     <AppLayout>
-      <LinkWrapper href="/auth/signup/phonenumberverification">
+      <LinkWrapper href="/auth/login/findpassword">
         <ArrowLeftOutlined />
       </LinkWrapper>
       <FlexWrapper gap={100} justify="center" vertical>
         <Flex align="left" vertical>
-          <Title content="작당모임에" customStyle={{ margin: 0 }} />
-          <Title content="가입하기" customStyle={{ margin: 0 }} />
+          <Title content="비밀번호를" customStyle={{ margin: 0 }} />
+          <Title content="잊으셨나요?" customStyle={{ margin: 0 }} />
         </Flex>
         <FormWrapper onFinish={onSubmit} layout="vertical">
           <Form.Item>

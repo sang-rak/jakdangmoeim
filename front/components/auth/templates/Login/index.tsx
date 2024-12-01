@@ -1,9 +1,8 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../../hooks/useInput";
-import { loginRequestAction } from "../../../../reducers/user";
+import { loginRequestAction } from "../../../../reducers/auth";
 import {
   ButtonWrapper,
   FlexWrapper,
@@ -15,14 +14,16 @@ import {
 import { CheckCircleFilled, CheckCircleOutlined } from "@ant-design/icons";
 import Title from "../../../common/atoms/Title";
 import AppLayout from "../../../common/organisms/AppLatout";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const dispatch = useDispatch();
   const { logInLoading } = useSelector((state: any) => state.user);
-  const [cellPhone, onChangeCellPhone] = useInput("");
+  const [username, onChangeUsername] = useInput("");
   const [password, onChangePassword] = useInput("");
   const [autoLoginIcon, setAutoLoginIcon] = useState(false);
-
+  const router = useRouter();
+  const { logInDone, logInError } = useSelector((state: any) => state.auth);
   const onChangeAutoLoginIcon = () => {
     if (autoLoginIcon) {
       setAutoLoginIcon(false);
@@ -31,9 +32,17 @@ const Login = () => {
     }
   };
 
-  const onSubmitForm = useCallback(() => {
-    dispatch(loginRequestAction({ cellPhone, password }));
-  }, [cellPhone, password]);
+  const onSubmit = useCallback(() => {
+    dispatch(loginRequestAction({ username: username, password: password }));
+  }, [username, password]);
+
+  // 로그인 성공 시 페이지 변경
+  useEffect(() => {
+    // 제출시
+    if (logInDone && logInError == null) {
+      router.push("/home");
+    }
+  }, [logInDone, logInError]);
 
   return (
     <AppLayout>
@@ -52,7 +61,7 @@ const Login = () => {
         <FormWrapper
           name="normal_login"
           className="login-form"
-          onFinish={onSubmitForm}
+          onFinish={onSubmit}
         >
           <Form.Item
             name="phone"
@@ -61,9 +70,9 @@ const Login = () => {
             <Input
               name="user-phone"
               type="phone"
-              value={cellPhone}
-              onChange={onChangeCellPhone}
-              placeholder="전화번호"
+              value={username}
+              onChange={onChangeUsername}
+              placeholder="아이디"
               required
             />
           </Form.Item>
@@ -93,7 +102,7 @@ const Login = () => {
               </SpanWrapper>
               <LinkWrapper
                 className="login-form-forgot"
-                href="/auth/signup/phonenumberverification"
+                href="/auth/login/findpassword"
               >
                 비밀번호 찾기
               </LinkWrapper>
