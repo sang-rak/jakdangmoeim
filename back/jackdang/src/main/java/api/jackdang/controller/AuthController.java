@@ -64,8 +64,12 @@ public class AuthController {
     public ResponseEntity<String> CertificationNumber(@RequestBody CertificationNumberRequest certificationNumberRequest, HttpServletRequest request) {
         try {
             String phone = certificationNumberRequest.getPhone();
-            // 이미 가입된 전화 번호가 있으면
-            authService.existsByPhone(phone);
+            String type = certificationNumberRequest.getType();
+
+            // 신규가입일 때 이미 가입된 전화 번호가 있는지 확인
+            if (type.equals("inactive")) {
+                authService.existsByPhone(phone);
+            }
 
             String certificationNumber = authService.sendRandomMessage(phone);
 

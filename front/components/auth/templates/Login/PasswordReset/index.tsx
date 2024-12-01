@@ -5,30 +5,31 @@ import Title from "../../../../common/atoms/Title";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 
-const PasswordActionSelection = () => {
+const PasswordReset = () => {
   return (
     <AppLayout>
-      <LinkWrapper href="/auth/login/certificationnumber">
+      <LinkWrapper href="/auth/login/passwordactionselection">
         <ArrowLeftOutlined />
       </LinkWrapper>
       <FlexWrapper vertical>
         <Flex align="left" vertical>
           <Title
-            content="인증이 성공했습니다."
-            customStyle={{ fontSize: 30, margin: 0 }}
+            content="비밀번호를 다시 설정해주세요"
+            customStyle={{ fontSize: 25, margin: 0 }}
           />
         </Flex>
+
         <ButtonWrapper
           type="primary"
-          href="/auth/login/passwordreset"
+          href="/auth/login/passwordresecheck"
           htmlType="submit"
           block
         >
-          새로운 비밀번호 재설정하기
+          설정하기
         </ButtonWrapper>
       </FlexWrapper>
     </AppLayout>
   );
 };
 
-export default memo(PasswordActionSelection);
+export default memo(PasswordReset);

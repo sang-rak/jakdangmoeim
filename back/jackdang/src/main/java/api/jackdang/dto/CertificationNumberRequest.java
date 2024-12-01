@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CertificationNumberRequest {
 
+    // 전화번호
     private String phone;
+
+    // 인증번호 종류
+    private String type;
+
 
 }

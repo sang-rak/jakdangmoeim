@@ -53,7 +53,7 @@ const CertificationNumber = () => {
 
   // 인증번호 다시 받기
   const handleCrtificationNumberRequest = useCallback(() => {
-    dispatch(AuthsetPhone({ phone: signUpData.phone }));
+    dispatch(AuthsetPhone({ phone: signUpData.phone, type: "inactive" }));
   }, [signUpData]);
 
   const MINUTES_IN_MS = 3 * 60 * 1000;
