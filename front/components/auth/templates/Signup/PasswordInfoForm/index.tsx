@@ -74,7 +74,7 @@ const PasswordInfoForm = () => {
         </Flex>
         <FormWrapper onFinish={onSubmit} layout="vertical">
           <Form.Item>
-            <label htmlFor="user-phone">비밀번호를 입력해주세요</label>
+            <label htmlFor="user-password">비밀번호를 입력해주세요</label>
           </Form.Item>
           <Form.Item>
             <Input

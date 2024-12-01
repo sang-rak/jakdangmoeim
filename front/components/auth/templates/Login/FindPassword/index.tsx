@@ -1,36 +1,27 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import { Flex, Form, Input } from "antd";
-import { useRouter } from "next/navigation";
-import useInput from "../../../../../hooks/useInput";
 import AppLayout from "../../../../common/organisms/AppLatout";
-import Title from "../../../../common/atoms/Title";
-import {
-  ButtonWrapper,
-  FormWrapper,
-  FlexWrapper,
-  ErrorMessage,
-  LinkWrapper,
-} from "./styles";
-
+import { LinkWrapper, FlexWrapper, FormWrapper, ErrorMessage } from "./styles";
 import { ArrowLeftOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { Flex, Form, Input } from "antd";
+import Title from "../../../../common/atoms/Title";
+import { ButtonWrapper } from "../styles";
+import useInput from "../../../../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthsetPhone } from "../../../../../hooks/useAuth";
+import { useRouter } from "next/navigation";
 
-const PhoneNumberVerificationForm = () => {
+const FindPassword = () => {
   const [phone, onChangePhone] = useInput("");
   const [phoneRequestError, setPhoneRequestError] = useState(false);
+  const { phoneDone, phoneError } = useSelector((state: any) => state.auth);
   const [checkSubmit, setCheckSubmit] = useState(false);
   const router = useRouter();
-
   const dispatch = useDispatch();
-
-  const { phoneDone, phoneError } = useSelector((state: any) => state.auth);
-
   const onSubmit = useCallback(() => {
     // validation 체크
     if (phone.length === 11) {
       setPhoneRequestError(false);
-      dispatch(AuthsetPhone({ phone: phone, type: "inactive" })); // phone 정보 설정
+      dispatch(AuthsetPhone({ phone: phone, type: "active" })); // phone 정보 설정
     } else {
       return setPhoneRequestError(true);
     }
@@ -40,7 +31,7 @@ const PhoneNumberVerificationForm = () => {
   useEffect(() => {
     // 제출시
     if (phoneDone && phoneError == phoneError) {
-      router.push("/auth/signup/certificationnumber");
+      router.push("/auth/login/certificationnumber");
     }
   }, [phoneDone, checkSubmit]);
 
@@ -49,21 +40,23 @@ const PhoneNumberVerificationForm = () => {
       <LinkWrapper href="/auth/login">
         <ArrowLeftOutlined />
       </LinkWrapper>
-      <FlexWrapper gap={30} justify="center" vertical>
+      <FlexWrapper gap={100} justify="center" vertical>
         <Flex align="left" vertical>
-          <Title content="작당모임에" customStyle={{ margin: 0 }} />
-          <Title content="가입하기" customStyle={{ margin: 0 }} />
+          <Title content="비밀번호를" customStyle={{ margin: 0 }} />
+          <Title content="잊으셨나요?" customStyle={{ margin: 0 }} />
         </Flex>
         <FormWrapper onFinish={onSubmit} layout="vertical">
-          <Form.Item label="휴대전화번호를 입력해주세요."></Form.Item>
+          <Form.Item>
+            <label htmlFor="user-phone">전화번호를 입력해주세요</label>
+          </Form.Item>
           <Form.Item>
             <Input
               name="user-phone"
               type="phone"
               value={phone}
-              required
-              placeholder="휴대전화번호"
               onChange={onChangePhone}
+              required
+              placeholder="전화번호"
             />
           </Form.Item>
           <Form.Item>
@@ -75,7 +68,7 @@ const PhoneNumberVerificationForm = () => {
             )}
           </Form.Item>
           <ButtonWrapper type="primary" htmlType="submit" block>
-            다음
+            인증번호 받기
           </ButtonWrapper>
         </FormWrapper>
       </FlexWrapper>
@@ -83,4 +76,4 @@ const PhoneNumberVerificationForm = () => {
   );
 };
 
-export default memo(PhoneNumberVerificationForm);
+export default memo(FindPassword);
