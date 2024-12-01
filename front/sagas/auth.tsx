@@ -19,18 +19,20 @@ import {
 } from "../reducers/auth";
 import axiosInstance from "../api/utils/instance";
 
-function logInAPI(data: any): any {
-  return axiosInstance.post("/api/v1/auth/login", data);
+function logInAPI(data: any) {
+  return axios.post("/api/login", data);
 }
 
-function* logIn(action: any): any {
+function* logIn(action: any) {
   try {
-    const result = yield call(logInAPI, action.data);
+    yield delay(1000);
+    // const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
       data: action.data,
     });
   } catch (err: any) {
+    console.error(err);
     yield put({
       type: LOG_IN_FAILURE,
       error: err.response.data,
@@ -39,7 +41,7 @@ function* logIn(action: any): any {
 }
 
 function logOutAPI() {
-  return axiosInstance.post("/api/logout");
+  return axios.post("/api/logout");
 }
 
 function* logOut() {

@@ -5,7 +5,7 @@ import PostForm from "../components/PostForm";
 import PostCard from "../components/PostCard";
 import { LOAD_POSTS_REQUEST } from "../reducers/post";
 import { useRouter } from "next/router";
-const Index = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state: any) => state.user);
   const { mainPosts, hasMorePosts, loadPostLoading } = useSelector(
@@ -53,4 +53,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Home;

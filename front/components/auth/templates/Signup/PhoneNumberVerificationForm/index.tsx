@@ -24,13 +24,13 @@ const PhoneNumberVerificationForm = () => {
 
   const dispatch = useDispatch();
 
-  const { phoneDone, phoneError } = useSelector((state: any) => state.auth);
+  const { phoneDone, signUpData } = useSelector((state: any) => state.auth);
 
   const onSubmit = useCallback(() => {
     // validation 체크
     if (phone.length === 11) {
       setPhoneRequestError(false);
-      dispatch(AuthsetPhone({ phone: phone, type: "inactive" })); // phone 정보 설정
+      dispatch(AuthsetPhone({ phone: phone })); // phone 정보 설정
     } else {
       return setPhoneRequestError(true);
     }
@@ -39,7 +39,7 @@ const PhoneNumberVerificationForm = () => {
   // 인증 번호 요청 성공 시 페이지 변경
   useEffect(() => {
     // 제출시
-    if (phoneDone && phoneError == phoneError) {
+    if (phoneDone) {
       router.push("/auth/signup/certificationnumber");
     }
   }, [phoneDone, checkSubmit]);
