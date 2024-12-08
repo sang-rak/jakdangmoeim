@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useState } from "react";
 import { Form, Input, Flex } from "antd";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 import { useDispatch, useSelector } from "react-redux";
 

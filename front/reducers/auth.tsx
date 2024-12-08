@@ -54,7 +54,6 @@ export const initialState: State = {
   certificationNumberLoading: false, // 인증번호 인증 중
   certificationNumberDone: false,
   certificationNumberError: null,
-
   me: null,
   signUpData: {},
   loginData: {},
