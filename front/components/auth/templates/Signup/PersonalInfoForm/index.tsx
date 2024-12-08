@@ -70,7 +70,7 @@ const PersonalInfoForm = () => {
         </Flex>
         <FormWrapper onFinish={onSubmit} layout="vertical">
           <Form.Item>
-            <Form.Item label="알맞을 매칭을 위해서 필수적으로 필요해요."></Form.Item>
+            <Form.Item label="알맞은 매칭을 위해서 필수적으로 필요해요."></Form.Item>
             <Input
               name="user-nick"
               value={nickname}

@@ -82,7 +82,6 @@ function phoneCertificationnumberAPI(data: any): any {
 function* phoneCertificationnumber(action: any): any {
   try {
     const result = yield call(phoneCertificationnumberAPI, action.data);
-    sessionStorage.setItem("result", "result");
     yield put({
       type: AUTH_SET_PHONE_SUCCESS,
       data: action.data,
@@ -137,8 +136,8 @@ function* watchCertificationNumberCheck() {
 
 export default function* userSaga() {
   yield all([
-    fork(watchLogIn), // call
-    fork(watchLogOut),
+    fork(watchLogIn), // 로그인
+    fork(watchLogOut), // 로그아웃
     fork(watchSignUp), // 회원가입
     fork(watchPhoneCertificationnumber), // 인증번호 요청
     fork(watchCertificationNumberCheck), // 인증번호 확인 요청

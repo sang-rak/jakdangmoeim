@@ -14,7 +14,6 @@ const FindPassword = () => {
   const [phone, onChangePhone] = useInput("");
   const [phoneRequestError, setPhoneRequestError] = useState(false);
   const { phoneDone, phoneError } = useSelector((state: any) => state.auth);
-  const [checkSubmit, setCheckSubmit] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const onSubmit = useCallback(() => {
@@ -25,15 +24,15 @@ const FindPassword = () => {
     } else {
       return setPhoneRequestError(true);
     }
-  }, [checkSubmit, phone]);
+  }, [phone]);
 
   // 인증 번호 요청 성공 시 페이지 변경
   useEffect(() => {
     // 제출시
-    if (phoneDone && phoneError == phoneError) {
+    if (phoneDone && phoneError == null) {
       router.push("/auth/login/certificationnumber");
     }
-  }, [phoneDone, checkSubmit]);
+  }, [phoneDone]);
 
   return (
     <AppLayout>

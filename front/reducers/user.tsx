@@ -12,18 +12,12 @@ export interface State {
   unfollowLoading: boolean; // 로그인 시도중
   unfollowDone: boolean;
   unfollowError: any;
-  logInLoading: boolean; // 로그인 시도중
-  logInDone: boolean;
-  logInError: any;
-  logOutLoading: boolean; // 로그아웃 시도중
-  logOutDone: boolean;
-  logOutError: any;
-  signUpLoading: boolean; // 회원가입 시도중
-  signUpDone: boolean;
-  signUpError: any;
   changeNicknameLoading: boolean; // 닉네임 변경 시도중
   changeNicknameDone: boolean;
   changeNicknameUpError: any;
+  changePasswordLoading: boolean;
+  changePasswordDone: boolean;
+  changePasswordError: any;
   me: User | null;
   signUpData: any;
   loginData: any;
@@ -36,38 +30,21 @@ export const initialState: State = {
   unfollowLoading: false, // 로그인 시도중
   unfollowDone: false,
   unfollowError: null,
-  logInLoading: false, // 로그인 시도중
-  logInDone: false,
-  logInError: null,
-  logOutLoading: false, // 로그아웃 시도중
-  logOutDone: false,
-  logOutError: null,
-  signUpLoading: false, // 회원가입 시도중
-  signUpDone: false,
-  signUpError: null,
   changeNicknameLoading: false, // 닉네임 변경 시도중
   changeNicknameDone: false,
   changeNicknameUpError: null,
+  changePasswordLoading: false, // 패스워드 변경 중
+  changePasswordDone: false,
+  changePasswordError: null,
   me: null,
   signUpData: {},
   loginData: {},
 };
 
-export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
-export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
-export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
-
-export const LOG_OUT_REQUEST = "LOG_OUT_REQUEST";
-export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
-export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
-
-export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
-export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
-export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
-
-export const CHANGE_NICKNAME_REQUEST = "CHANGE_NICKNAME_REQUEST";
-export const CHANGE_NICKNAME_SUCCESS = "CHANGE_NICKNAME_SUCCESS";
-export const CHANGE_NICKNAME_FAILURE = "CHANGE_NICKNAME_FAILURE";
+// 패스워드 변경
+export const CHANGE_PASSWORD_REQUEST = "CHANGE_PASSWORD_REQUEST";
+export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
+export const CHANGE_PASSWORD_FAILURE = "CHANGE_PASSWORD_FAILURE";
 
 export const FOLLOW_REQUEST = "FOLLOW_REQUEST";
 export const FOLLOW_SUCCESS = "FOLLOW_SUCCESS";
@@ -80,40 +57,22 @@ export const UNFOLLOW_FAILURE = "UNFOLLOW_FAILURE";
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
 export const REMOVE_POST_OF_ME = "REMOVE_POST_OF_ME";
 
-const dummyUser = (data: any) => ({
-  ...data,
-  nickname: "잉락",
-  id: 1,
-  Posts: [{ id: 1 }],
-  Followings: [
-    { nickname: "삼락" },
-    { nickname: "threera" },
-    { nickname: "fdsffal" },
-  ],
-  Followers: [
-    { nickname: "사락" },
-    { nickname: "fourrack" },
-    { nickname: "fdsff" },
-  ],
-});
-
-// action creator
-export const loginRequestAction = (data: any) => {
-  return {
-    type: LOG_IN_REQUEST,
-    data,
-  };
-};
-
-export const logoutRequestAction = () => {
-  return {
-    type: LOG_OUT_REQUEST,
-  };
-};
-
 const reducer = (state = initialState, action: any) =>
   produce(state, (draft: any) => {
     switch (action.type) {
+      case CHANGE_PASSWORD_REQUEST:
+        draft.changePasswordLoading = true;
+        draft.changePasswordError = null;
+        draft.changePasswordDone = false;
+        break;
+      case CHANGE_PASSWORD_SUCCESS:
+        draft.changePasswordLoading = false;
+        draft.changePasswordDone = true;
+        break;
+      case CHANGE_PASSWORD_FAILURE:
+        draft.changePasswordLoading = false;
+        draft.changePasswordError = action.error;
+        break;
       case FOLLOW_REQUEST:
         draft.followLoading = true;
         draft.followError = null;
@@ -144,82 +103,15 @@ const reducer = (state = initialState, action: any) =>
         draft.unfollowLoading = false;
         draft.unfollowError = action.error;
         break;
-      case LOG_IN_REQUEST:
-        draft.logInLoading = true;
-        draft.logInError = null;
-        draft.logInDone = false;
-        break;
-      case LOG_IN_SUCCESS:
-        draft.logInLoading = false;
-        draft.me = dummyUser(action.data);
-        draft.logInDone = true;
-        break;
-      case LOG_IN_FAILURE:
-        draft.logInLoading = false;
-        draft.logInError = action.error;
-        break;
-      case LOG_OUT_REQUEST:
-        draft.logOutLoading = true;
-        draft.logOutError = null;
-        draft.logOutDone = false;
-        break;
-      case LOG_OUT_SUCCESS:
-        draft.logOutLoading = false;
-        draft.logOutDone = true;
-        draft.me = null;
-        break;
-      case LOG_OUT_FAILURE:
-        draft.logOutLoading = false;
-        draft.logOutError = action.error;
-        break;
-      case SIGN_UP_REQUEST:
-        draft.signUpLoading = true;
-        draft.signUpError = null;
-        draft.signUpDone = false;
-        break;
-      case SIGN_UP_SUCCESS:
-        draft.signUpLoading = false;
-        draft.signUpDone = true;
-        break;
-      case SIGN_UP_FAILURE:
-        draft.signUpLoading = false;
-        draft.signUpError = action.error;
-        break;
-      case CHANGE_NICKNAME_REQUEST:
-        draft.changeNicknameLoading = true;
-        draft.changeNicknameError = null;
-        draft.changeNicknameDone = false;
-        break;
-      case CHANGE_NICKNAME_SUCCESS:
-        draft.changeNicknameLoading = false;
-        draft.changeNicknameDone = true;
-        break;
-      case CHANGE_NICKNAME_FAILURE:
-        draft.changeNicknameLoading = false;
-        draft.changeNicknameError = action.error;
-        break;
       case ADD_POST_TO_ME:
         draft.me.Posts.unshift({ id: action.data });
         break;
-      // return {
-      //   ...state,
-      //   me: {
-      //     ...state.me,
-      //     Posts: [{ id: action.data }, ...state.me.Posts],
-      //   },
-      // };
       case REMOVE_POST_OF_ME:
         draft.me.Posts = draft.me.Posts.filter(
           (v: any) => v.id !== action.data
         );
         break;
-      // return {
-      //   ...state,
-      //   me: {
-      //     ...state.me,
-      //     Posts: state.me.Posts.filter((v: any) => v.id !== action.data),
-      //   },
-      // };
+
       default:
         break;
     }

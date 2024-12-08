@@ -1,77 +1,32 @@
 import axios from "axios";
-import { all, delay, fork, put, takeLatest } from "redux-saga/effects";
+import { all, call, delay, fork, put, takeLatest } from "redux-saga/effects";
 import {
+  CHANGE_PASSWORD_FAILURE,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
   FOLLOW_FAILURE,
   FOLLOW_REQUEST,
   FOLLOW_SUCCESS,
-  LOG_IN_FAILURE,
-  LOG_IN_REQUEST,
-  LOG_IN_SUCCESS,
-  LOG_OUT_FAILURE,
-  LOG_OUT_REQUEST,
-  LOG_OUT_SUCCESS,
-  SIGN_UP_FAILURE,
-  SIGN_UP_REQUEST,
-  SIGN_UP_SUCCESS,
   UNFOLLOW_FAILURE,
   UNFOLLOW_REQUEST,
   UNFOLLOW_SUCCESS,
 } from "../reducers/user";
+import axiosInstance from "../api/utils/instance";
 
-function logInAPI(data: any) {
-  return axios.post("/api/login", data);
+function changePasswordAPI(data: any): any {
+  return axiosInstance.post("/api/v1/user/change-password", data);
 }
 
-function* logIn(action: any) {
+function* changePassword(action: any): any {
   try {
-    yield delay(1000);
-    // const result = yield call(logInAPI, action.data);
+    const result = yield call(changePasswordAPI, action.data);
     yield put({
-      type: LOG_IN_SUCCESS,
+      type: CHANGE_PASSWORD_SUCCESS,
       data: action.data,
     });
   } catch (err: any) {
-    console.error(err);
     yield put({
-      type: LOG_IN_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-function logOutAPI() {
-  return axios.post("/api/logout");
-}
-
-function* logOut() {
-  try {
-    yield delay(1000);
-    // const result = yield call(logOutAPI);
-    yield put({
-      type: LOG_OUT_SUCCESS,
-    });
-  } catch (err: any) {
-    yield put({
-      type: LOG_OUT_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-function signUpAPI() {
-  return axios.post("/api/signUp");
-}
-
-function* signUp() {
-  try {
-    yield delay(1000);
-    // const result = yield call(signUpAPI);
-    yield put({
-      type: SIGN_UP_SUCCESS,
-    });
-  } catch (err: any) {
-    yield put({
-      type: SIGN_UP_FAILURE,
+      type: CHANGE_PASSWORD_FAILURE,
       error: err.response.data,
     });
   }
@@ -117,6 +72,10 @@ function* unfollow(action: any) {
   }
 }
 
+function* watchChangePassword() {
+  yield takeLatest(CHANGE_PASSWORD_REQUEST, changePassword);
+}
+
 function* watchFollow() {
   yield takeLatest(FOLLOW_REQUEST, follow);
 }
@@ -125,24 +84,10 @@ function* watchUnFollow() {
   yield takeLatest(UNFOLLOW_REQUEST, unfollow);
 }
 
-function* watchLogIn() {
-  yield takeLatest(LOG_IN_REQUEST, logIn);
-}
-
-function* watchLogOut() {
-  yield takeLatest(LOG_OUT_REQUEST, logOut);
-}
-
-function* watchSignUp() {
-  yield takeLatest(SIGN_UP_REQUEST, signUp);
-}
-
 export default function* userSaga() {
   yield all([
+    fork(watchChangePassword),
     fork(watchFollow), // call
     fork(watchUnFollow), // call
-    fork(watchLogIn), // call
-    fork(watchLogOut),
-    fork(watchSignUp),
   ]);
 }
