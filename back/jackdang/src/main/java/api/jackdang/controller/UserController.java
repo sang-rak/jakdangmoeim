@@ -18,6 +18,7 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
+    // 패스워드 변경
     @PostMapping("change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
         try {
