@@ -14,7 +14,7 @@ import {
 import axiosInstance from "../api/utils/instance";
 
 function changePasswordAPI(data: any): any {
-  return axiosInstance.post("/api/v1/user/change-password", data);
+  return axiosInstance.post("/api/v1/auth/change-password", data);
 }
 
 function* changePassword(action: any): any {
