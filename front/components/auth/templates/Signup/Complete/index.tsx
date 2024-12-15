@@ -22,7 +22,7 @@ const Complete = () => {
       // 회원가입 요청
       dispatch(
         SignupRequestAction({
-          username: nickname,
+          username: phone,
           nickname: nickname,
           phone: phone,
           password: password,
