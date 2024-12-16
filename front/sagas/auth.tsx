@@ -26,6 +26,8 @@ function logInAPI(data: any): any {
 function* logIn(action: any): any {
   try {
     const result = yield call(logInAPI, action.data);
+    console.log("result");
+    console.log(result);
     yield put({
       type: LOG_IN_SUCCESS,
       data: action.data,

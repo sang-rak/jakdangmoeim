@@ -1,10 +1,11 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Flex, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../../hooks/useInput";
 import { loginRequestAction } from "../../../../reducers/auth";
 import {
   ButtonWrapper,
+  ErrorMessage,
   FlexWrapper,
   FormWrapper,
   LinkWhiteWrapper,
@@ -21,6 +22,7 @@ const Login = () => {
   const { logInLoading } = useSelector((state: any) => state.user);
   const [username, onChangeUsername] = useInput("");
   const [password, onChangePassword] = useInput("");
+  const [loginError, setLoginError] = useState(false);
   const [autoLoginIcon, setAutoLoginIcon] = useState(false);
   const router = useRouter();
   const { logInDone, logInError } = useSelector((state: any) => state.auth);
@@ -107,6 +109,9 @@ const Login = () => {
                 비밀번호 찾기
               </LinkWrapper>
             </Form.Item>
+            {logInError && (
+              <ErrorMessage>가입하신 정보와 일치하지 않습니다</ErrorMessage>
+            )}
           </Form.Item>
           <FlexWrapper justify="center" align="center" vertical>
             <FlexWrapper>

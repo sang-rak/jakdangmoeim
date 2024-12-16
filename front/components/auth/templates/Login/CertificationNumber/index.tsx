@@ -116,7 +116,7 @@ const CertificationNumber = () => {
           <Form.Item>
             {certificationnumberError && (
               <>
-                <ErrorMessage justify="space-between" align="center">
+                <ErrorMessage>
                   <Flex>
                     <ExclamationCircleFilled />
                     &ensp;인증번호를 다시 확인 해주세요

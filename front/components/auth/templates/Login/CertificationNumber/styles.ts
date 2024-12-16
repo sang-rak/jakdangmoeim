@@ -36,4 +36,6 @@ export const ButtonOpenWrapper = styled(Button)`
 
 export const ErrorMessage = styled(Flex)`
   color: red;
+  justify-content: "space-between";
+  align-items: "center";
 `;
