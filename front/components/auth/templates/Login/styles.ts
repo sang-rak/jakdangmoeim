@@ -42,3 +42,9 @@ export const SpanWrapper = styled.span`
 export const ButtonWrapper = styled(Button)`
   background-color: #848484;
 `;
+
+export const ErrorMessage = styled(Flex)`
+  color: red;
+  justify-content: center;
+  align-items: center;
+`;
